@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Team Member Workbench | Global Shine{% endblock %}
+
+{% block content %}
+<div class="py-8 bg-slate-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Header -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow">
+                    {{ user.name[:2].upper() }}
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Team Engineer</span>
+                        <span class="text-xs text-slate-400 font-mono">{{ user.employee_id or 'GS-ENG-101' }}</span>
+                    </div>
+                    <h1 class="text-2xl font-extrabold text-navy-900 mt-1">{{ user.name }}</h1>
+                    <p class="text-xs text-slate-500">{{ user.designation or 'Senior Software Engineer' }} • Joined {{ user.joining_date or '2022-03-15' }}</p>
+                </div>
+            </div>
+            <div>
+                <a href="{{ url_for('view_id_card', user_id=user.id) }}" target="_blank" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2">
+                    <i class="fa-solid fa-id-card text-brandBlue"></i>
+                    <span>View Digital ID Card</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Assigned Tasks</p>
+                <p class="text-2xl font-extrabold text-navy-900 mt-1">{{ my_tasks|length }}</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Incentive Earned</p>
+                <p class="text-2xl font-extrabold text-emerald-600 mt-1">
+                    ₹{{ "{:,.2f}".format(my_incentives|sum(attribute='amount_earned')) }}
+                </p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Incentive Pending</p>
+                <p class="text-2xl font-extrabold text-amber-600 mt-1">
+                    ₹{{ "{:,.2f}".format(my_incentives|sum(attribute='amount_pending')) }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Assigned Tasks Workbench -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📌 My Task Queue</h3>
+            
+            <div class="space-y-4">
+                {% for t in my_tasks %}
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-navy-900 text-sm">{{ t.title }}</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-brandBlue">{{ t.priority }}</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Project: {{ t.project_name or 'Global Shine Core' }} • Deadline: {{ t.deadline or 'N/A' }}</p>
+                    </div>
+
+                    <form action="{{ url_for('update_task_status') }}" method="POST" class="flex items-center gap-2 text-xs w-full sm:w-auto">
+                        <input type="hidden" name="task_id" value="{{ t.id }}">
+                        <select name="status" class="p-2 rounded border border-slate-300 font-bold bg-white">
+                            <option value="Pending" {% if t.status=='Pending' %}selected{% endif %}>Pending</option>
+                            <option value="In Progress" {% if t.status=='In Progress' %}selected{% endif %}>In Progress</option>
+                            <option value="Submitted" {% if t.status=='Submitted' %}selected{% endif %}>Submitted for Approval</option>
+                            <option value="Completed" {% if t.status=='Completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                        <input type="text" name="remarks" placeholder="Completion note" class="p-2 rounded border border-slate-300 bg-white">
+                        <button type="submit" class="bg-emerald-600 text-white font-bold px-3 py-2 rounded">Update</button>
+                    </form>
+                </div>
+                {% else %}
+                <p class="text-xs text-slate-500 italic">No pending tasks currently assigned.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Assigned Leads & Client Enquiries -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📥 My Assigned Leads & Enquiries</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Lead / Company</th>
+                            <th class="py-2.5 px-3">Contact</th>
+                            <th class="py-2.5 px-3">Service Required</th>
+                            <th class="py-2.5 px-3">Requirements</th>
+                            <th class="py-2.5 px-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for l in my_leads %}
+                        <tr>
+                            <td class="py-2.5 px-3 font-bold text-navy-900">
+                                {{ l.lead_name }}
+                                {% if l.company %}<span class="block text-[10px] text-slate-400 font-normal">{{ l.company }}</span>{% endif %}
+                            </td>
+                            <td class="py-2.5 px-3 font-medium">
+                                <a href="tel:{{ l.mobile }}" class="hover:underline text-brandBlue">{{ l.mobile }}</a>
+                                {% if l.email %}<span class="block text-[10px] text-slate-400">{{ l.email }}</span>{% endif %}
+                            </td>
+                            <td class="py-2.5 px-3 font-semibold text-itIndigo">{{ l.service_required }}</td>
+                            <td class="py-2.5 px-3 max-w-xs text-[11px] text-slate-600 truncate">{{ l.requirement or l.notes or 'N/A' }}</td>
+                            <td class="py-2.5 px-3">
+                                <span class="bg-blue-100 text-brandBlue text-[10px] font-extrabold px-2 py-0.5 rounded">{{ l.status }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="py-4 text-center text-slate-400 italic">No client leads currently assigned to you.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Document Repository -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📁 Technical Shared Vault</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {% for d in documents %}
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-navy-900">{{ d.title }}</p>
+                        <p class="text-[10px] text-slate-400">{{ d.category }}</p>
+                    </div>
+                    <a href="{{ d.file_path }}" target="_blank" class="text-brandBlue font-bold hover:underline"><i class="fa-solid fa-download"></i> Open</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

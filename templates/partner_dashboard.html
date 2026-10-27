@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Partner Executive Portal | Global Shine{% endblock %}
+
+{% block content %}
+<div class="py-8 bg-slate-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Partner Banner -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-full bg-navy-900 text-brandBlue flex items-center justify-center font-bold text-xl shadow">
+                    {{ user.name[:2].upper() }}
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-blue-100 text-brandBlue text-xs font-bold px-2 py-0.5 rounded">Business Partner</span>
+                        <span class="text-xs text-slate-400 font-mono">{{ user.employee_id or 'GS-PTR-201' }}</span>
+                    </div>
+                    <h1 class="text-2xl font-extrabold text-navy-900 mt-1">{{ user.name }}</h1>
+                    <p class="text-xs text-slate-500">{{ user.designation or 'Digital Business Strategist' }}</p>
+                </div>
+            </div>
+            <div>
+                <a href="{{ url_for('view_id_card', user_id=user.id) }}" target="_blank" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2">
+                    <i class="fa-solid fa-id-card text-emerald-400"></i>
+                    <span>View Partner Digital ID Card</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Financial Summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Assigned Clients</p>
+                <p class="text-2xl font-extrabold text-navy-900 mt-1">{{ my_clients|length }}</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Commission Earned</p>
+                <p class="text-2xl font-extrabold text-emerald-600 mt-1">
+                    ₹{{ "{:,.2f}".format(my_incentives|sum(attribute='amount_earned')) }}
+                </p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Commission Pending</p>
+                <p class="text-2xl font-extrabold text-rose-600 mt-1">
+                    ₹{{ "{:,.2f}".format(my_incentives|sum(attribute='amount_pending')) }}
+                </p>
+            </div>
+        </div>
+
+        <!-- My Clients -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">🧑‍💼 Assigned Client Portfolio</h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 font-bold border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Company</th>
+                            <th class="py-2.5 px-3">Contact</th>
+                            <th class="py-2.5 px-3">Project Value</th>
+                            <th class="py-2.5 px-3">Received</th>
+                            <th class="py-2.5 px-3">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for c in my_clients %}
+                        <tr>
+                            <td class="py-2.5 px-3 font-bold text-navy-900">{{ c.company_name }}</td>
+                            <td class="py-2.5 px-3">{{ c.contact_person }} ({{ c.mobile }})</td>
+                            <td class="py-2.5 px-3 font-bold">₹{{ "{:,.2f}".format(c.project_cost) }}</td>
+                            <td class="py-2.5 px-3 text-emerald-600 font-bold">₹{{ "{:,.2f}".format(c.amount_received) }}</td>
+                            <td class="py-2.5 px-3 text-rose-600 font-bold">₹{{ "{:,.2f}".format(c.balance_amount) }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="py-3 text-center text-slate-400 italic">No assigned clients registered yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Assigned Leads & Business Inquiries -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📥 My Assigned Leads & Business Inquiries</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 font-bold border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Lead / Company</th>
+                            <th class="py-2.5 px-3">Contact</th>
+                            <th class="py-2.5 px-3">Service Required</th>
+                            <th class="py-2.5 px-3">Requirements</th>
+                            <th class="py-2.5 px-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for l in my_leads %}
+                        <tr>
+                            <td class="py-2.5 px-3 font-bold text-navy-900">
+                                {{ l.lead_name }}
+                                {% if l.company %}<span class="block text-[10px] text-slate-400 font-normal">{{ l.company }}</span>{% endif %}
+                            </td>
+                            <td class="py-2.5 px-3 font-medium">
+                                <a href="tel:{{ l.mobile }}" class="hover:underline text-brandBlue">{{ l.mobile }}</a>
+                                {% if l.email %}<span class="block text-[10px] text-slate-400">{{ l.email }}</span>{% endif %}
+                            </td>
+                            <td class="py-2.5 px-3 font-semibold text-itIndigo">{{ l.service_required }}</td>
+                            <td class="py-2.5 px-3 max-w-xs text-[11px] text-slate-600 truncate">{{ l.requirement or l.notes or 'N/A' }}</td>
+                            <td class="py-2.5 px-3">
+                                <span class="bg-blue-100 text-brandBlue text-[10px] font-extrabold px-2 py-0.5 rounded">{{ l.status }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="py-4 text-center text-slate-400 italic">No business leads currently assigned to you.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Shared Document Repository -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📁 Proposals & Sales Assets</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {% for d in documents %}
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-navy-900">{{ d.title }}</p>
+                        <p class="text-[10px] text-slate-400">{{ d.category }}</p>
+                    </div>
+                    <a href="{{ d.file_path }}" target="_blank" class="text-brandBlue font-bold hover:underline"><i class="fa-solid fa-download"></i> Open</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

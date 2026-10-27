@@ -1,0 +1,508 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Master Console | Global Shine{% endblock %}
+
+{% block content %}
+<div class="py-8 bg-slate-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-navy-900 text-white text-xs font-bold px-2.5 py-0.5 rounded">Super Admin</span>
+                    <span class="text-xs text-slate-400 font-mono">GS-DIR-001</span>
+                </div>
+                <h1 class="text-2xl font-extrabold text-navy-900 mt-1">Global Shine Master Control Console</h1>
+                <p class="text-xs text-slate-500">Welcome, Nishant Chaturvedi (Director). Enterprise Operations & CRM System.</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="{{ url_for('view_id_card', user_id=session['user_id']) }}" target="_blank" class="bg-brandBlue hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>My Digital ID Card</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Financial & Operational KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Total Project Pipeline Value</p>
+                <p class="text-2xl font-extrabold text-navy-900 mt-1">₹{{ "{:,.2f}".format(total_project_val) }}</p>
+                <p class="text-[10px] text-slate-400 mt-1">Gross Contract Value</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Revenue Collected</p>
+                <p class="text-2xl font-extrabold text-emerald-600 mt-1">₹{{ "{:,.2f}".format(total_received) }}</p>
+                <p class="text-[10px] text-emerald-600 mt-1">Received via Advances & Milestones</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Pending Balances Due</p>
+                <p class="text-2xl font-extrabold text-rose-600 mt-1">₹{{ "{:,.2f}".format(total_balance) }}</p>
+                <p class="text-[10px] text-rose-500 mt-1">Client Receivables Outstanding</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Leads & Active Clients</p>
+                <p class="text-2xl font-extrabold text-brandBlue mt-1">{{ clients|length }} Clients / {{ leads|length }} Leads</p>
+                <p class="text-[10px] text-slate-400 mt-1">CRM Active Records</p>
+            </div>
+        </div>
+
+        <!-- SECTION 0: WEBSITE ENQUIRIES & CRM LEADS (Direct Form Submissions) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-slate-100">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <h3 class="text-lg font-extrabold text-navy-900">📥 Incoming Website Enquiries & Leads CRM</h3>
+                    </div>
+                    <p class="text-xs text-slate-500">Real-time submissions from the "Send a Project Enquiry" website form & CRM leads</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="document.getElementById('leadModal').classList.toggle('hidden')" class="bg-brandBlue hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-plus"></i> Add Lead Manually
+                    </button>
+                </div>
+            </div>
+
+            <!-- Manual Lead Creation Form -->
+            <div id="leadModal" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 class="text-sm font-bold text-navy-900 mb-3">Create New CRM Lead</h4>
+                <form action="{{ url_for('add_lead') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <input type="text" name="lead_name" required placeholder="Lead / Client Name" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="company" placeholder="Company / Organization" class="p-2.5 rounded border border-slate-300">
+                    <input type="tel" name="mobile" required placeholder="Mobile / Phone Number" class="p-2.5 rounded border border-slate-300">
+                    <input type="email" name="email" placeholder="Email Address" class="p-2.5 rounded border border-slate-300">
+                    <select name="service_required" class="p-2.5 rounded border border-slate-300 font-bold">
+                        <option value="Custom Web App Development">Custom Web App Development</option>
+                        <option value="Android / iOS Mobile App">Android / iOS Mobile App</option>
+                        <option value="Hospital & Pharmacy Software">Hospital & Pharmacy Software</option>
+                        <option value="School / College ERP System">School / College ERP System</option>
+                        <option value="Billing / POS Software">Billing / POS Software</option>
+                        <option value="Enterprise ERP & CRM">Enterprise ERP & CRM</option>
+                        <option value="AI Automation Solutions">AI Automation Solutions</option>
+                    </select>
+                    <select name="assigned_team_id" class="p-2.5 rounded border border-slate-300">
+                        <option value="">Assign Team Member (Optional)</option>
+                        {% for u in users if u.role == 'team' %}
+                        <option value="{{ u.id }}">{{ u.name }} (Team)</option>
+                        {% endfor %}
+                    </select>
+                    <select name="assigned_partner_id" class="p-2.5 rounded border border-slate-300">
+                        <option value="">Assign Partner (Optional)</option>
+                        {% for u in users if u.role == 'partner' %}
+                        <option value="{{ u.id }}">{{ u.name }} (Partner)</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" name="follow_up_date" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="notes" placeholder="Requirement notes / remarks" class="p-2.5 rounded border border-slate-300 sm:col-span-3">
+                    <button type="submit" class="sm:col-span-3 bg-brandBlue text-white font-bold py-2 rounded">Create & Save Lead</button>
+                </form>
+            </div>
+
+            <!-- Leads & Enquiries Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">Contact Person</th>
+                            <th class="py-3 px-4">Phone & WhatsApp</th>
+                            <th class="py-3 px-4">Service Required</th>
+                            <th class="py-3 px-4">Project Requirements / Notes</th>
+                            <th class="py-3 px-4">Status & Assignment</th>
+                            <th class="py-3 px-4 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for l in leads %}
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="py-3 px-4">
+                                <span class="font-extrabold text-navy-900 block">{{ l.lead_name }}</span>
+                                <span class="text-[10px] text-slate-400">
+                                    {% if l.company %}{{ l.company }} • {% endif %}
+                                    <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">{{ l.lead_source or 'Website Form' }}</span>
+                                </span>
+                                {% if l.email %}
+                                <div class="text-[10px] text-slate-500 mt-0.5">
+                                    <a href="mailto:{{ l.email }}" class="text-brandBlue hover:underline">{{ l.email }}</a>
+                                </div>
+                                {% endif %}
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <span>{{ l.mobile }}</span>
+                                    {% if l.mobile %}
+                                    <a href="https://wa.me/{{ l.mobile|replace(' ', '')|replace('+', '')|replace('-', '') }}" target="_blank" class="text-emerald-600 hover:text-emerald-700 text-sm" title="Chat on WhatsApp">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                    <a href="tel:{{ l.mobile }}" class="text-sky-600 hover:text-sky-700 text-xs" title="Call">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="text-[10px] text-slate-400">{{ l.created_at[:10] if l.created_at else 'Recent' }}</div>
+                            </td>
+                            <td class="py-3 px-4 font-semibold text-itIndigo">
+                                <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
+                                    {{ l.service_required or 'Custom Software' }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 max-w-xs">
+                                <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
+                                    {{ l.requirement or l.notes or 'No details provided' }}
+                                </p>
+                            </td>
+                            <td class="py-3 px-4">
+                                <form action="{{ url_for('update_lead') }}" method="POST" class="flex flex-col gap-1.5">
+                                    <input type="hidden" name="lead_id" value="{{ l.id }}">
+                                    <div class="flex items-center gap-1">
+                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                            <option value="New" {% if l.status == 'New' %}selected{% endif %}>🟢 New</option>
+                                            <option value="Discussion" {% if l.status == 'Discussion' %}selected{% endif %}>🟡 In Discussion</option>
+                                            <option value="Quotation" {% if l.status == 'Quotation' %}selected{% endif %}>🔵 Quotation Sent</option>
+                                            <option value="Won" {% if l.status == 'Won' %}selected{% endif %}>🏆 Won / Converted</option>
+                                            <option value="Lost" {% if l.status == 'Lost' %}selected{% endif %}>❌ Lost</option>
+                                        </select>
+                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Team</option>
+                                            {% for u in users if u.role == 'team' %}
+                                            <option value="{{ u.id }}" {% if l.assigned_team_id == u.id %}selected{% endif %}>{{ u.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Partner</option>
+                                            {% for u in users if u.role == 'partner' %}
+                                            <option value="{{ u.id }}" {% if l.assigned_partner_id == u.id %}selected{% endif %}>{{ u.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                    </div>
+                                </form>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <a href="{{ url_for('delete_lead', lead_id=l.id) }}" onclick="return confirm('Delete this lead record?')" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="py-6 text-center text-slate-400 italic">
+                                No website enquiries received yet. Form submissions from the website will automatically appear here in real-time.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 1: TEAM & PARTNERS MANAGEMENT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                <div>
+                    <h3 class="text-lg font-extrabold text-navy-900">👥 Team Members & Partners Directory</h3>
+                    <p class="text-xs text-slate-500">Manage internal engineers, strategists, and business partners</p>
+                </div>
+                <!-- Modal trigger form toggle -->
+                <button onclick="document.getElementById('userModal').classList.toggle('hidden')" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-plus"></i> Add Member / Partner
+                </button>
+            </div>
+
+            <!-- New User Form (Collapsible Modal style) -->
+            <div id="userModal" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 class="text-sm font-bold text-navy-900 mb-3">Register New Team Member or Partner</h4>
+                <form action="{{ url_for('add_user') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <input type="text" name="name" required placeholder="Full Name" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="username" required placeholder="Username ID" class="p-2.5 rounded border border-slate-300">
+                    <input type="password" name="password" required placeholder="Password" class="p-2.5 rounded border border-slate-300">
+                    <input type="email" name="email" placeholder="Email Address" class="p-2.5 rounded border border-slate-300">
+                    <input type="tel" name="phone" placeholder="Phone Number" class="p-2.5 rounded border border-slate-300">
+                    <select name="role" required class="p-2.5 rounded border border-slate-300 font-bold">
+                        <option value="team">Team Member (Engineer/Staff)</option>
+                        <option value="partner">Business Partner</option>
+                        <option value="admin">Admin / Director</option>
+                    </select>
+                    <input type="text" name="designation" placeholder="Designation (e.g. Lead Engineer)" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="employee_id" placeholder="Employee / Partner ID (e.g. GS-ENG-102)" class="p-2.5 rounded border border-slate-300">
+                    <input type="date" name="joining_date" class="p-2.5 rounded border border-slate-300">
+                    <button type="submit" class="sm:col-span-3 bg-brandBlue text-white font-bold py-2 rounded">Save User & Generate Credentials</button>
+                </form>
+            </div>
+
+            <!-- User Directory Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">User</th>
+                            <th class="py-3 px-4">Role / Designation</th>
+                            <th class="py-3 px-4">ID Code</th>
+                            <th class="py-3 px-4">Contact</th>
+                            <th class="py-3 px-4">Digital ID Card</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for u in users %}
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 px-4 font-bold text-navy-900">{{ u.name }}</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold 
+                                    {% if u.role == 'admin' %} bg-purple-100 text-purple-800
+                                    {% elif u.role == 'team' %} bg-emerald-100 text-emerald-800
+                                    {% else %} bg-blue-100 text-blue-800 {% endif %}">
+                                    {{ u.role.upper() }}
+                                </span>
+                                <span class="block text-[11px] text-slate-500 font-medium">{{ u.designation or 'Staff' }}</span>
+                            </td>
+                            <td class="py-3 px-4 font-mono font-bold text-slate-600">{{ u.employee_id or 'GS-USR-0' ~ u.id }}</td>
+                            <td class="py-3 px-4">
+                                <div>{{ u.phone or 'N/A' }}</div>
+                                <div class="text-[10px] text-slate-400">{{ u.email or 'N/A' }}</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <a href="{{ url_for('view_id_card', user_id=u.id) }}" target="_blank" class="text-brandBlue font-bold hover:underline flex items-center gap-1">
+                                    <i class="fa-solid fa-id-card text-xs"></i> View ID Card
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 2: CLIENT MANAGEMENT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                <div>
+                    <h3 class="text-lg font-extrabold text-navy-900">🧑‍💼 Client Directory & Financial Profiles</h3>
+                    <p class="text-xs text-slate-500">Manage client master data, contract values, received revenue & balance due</p>
+                </div>
+                <button onclick="document.getElementById('clientModal').classList.toggle('hidden')" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus"></i> Add Client
+                </button>
+            </div>
+
+            <div id="clientModal" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 class="text-sm font-bold text-navy-900 mb-3">Add New Client Profile</h4>
+                <form action="{{ url_for('add_client') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <input type="text" name="company_name" required placeholder="Company / Organization Name" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="contact_person" required placeholder="Contact Person" class="p-2.5 rounded border border-slate-300">
+                    <input type="tel" name="mobile" required placeholder="Mobile Number" class="p-2.5 rounded border border-slate-300">
+                    <input type="email" name="email" placeholder="Email" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="gst_number" placeholder="GST / Business Reg No." class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="city" placeholder="City" class="p-2.5 rounded border border-slate-300">
+                    <input type="number" step="0.01" name="project_cost" placeholder="Total Project Cost (₹)" class="p-2.5 rounded border border-slate-300 font-bold">
+                    <input type="number" step="0.01" name="amount_received" placeholder="Amount Received (₹)" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="address" placeholder="Address" class="p-2.5 rounded border border-slate-300 sm:col-span-3">
+                    <button type="submit" class="sm:col-span-3 bg-emerald-600 text-white font-bold py-2 rounded">Register Client Profile</button>
+                </form>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">Client / Company</th>
+                            <th class="py-3 px-4">Contact Person</th>
+                            <th class="py-3 px-4">Project Value</th>
+                            <th class="py-3 px-4">Received</th>
+                            <th class="py-3 px-4">Balance Due</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for c in clients %}
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <span class="font-extrabold text-navy-900 block">{{ c.company_name }}</span>
+                                <span class="text-[10px] text-slate-400">{{ c.city or 'India' }} {% if c.gst_number %}• GST: {{ c.gst_number }}{% endif %}</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-semibold">{{ c.contact_person }}</div>
+                                <div class="text-[10px] text-slate-500">{{ c.mobile }}</div>
+                            </td>
+                            <td class="py-3 px-4 font-bold text-navy-900">₹{{ "{:,.2f}".format(c.project_cost) }}</td>
+                            <td class="py-3 px-4 font-bold text-emerald-600">₹{{ "{:,.2f}".format(c.amount_received) }}</td>
+                            <td class="py-3 px-4 font-bold text-rose-600">₹{{ "{:,.2f}".format(c.balance_amount) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PROJECT WORKFLOWS & TASKS -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Project Pipelines -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h3 class="text-base font-extrabold text-navy-900">📊 Active Projects & Workflows</h3>
+                    <button onclick="document.getElementById('projModal').classList.toggle('hidden')" class="bg-brandBlue text-white text-xs font-bold px-3 py-1.5 rounded">New Project</button>
+                </div>
+
+                <div id="projModal" class="hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <form action="{{ url_for('add_project') }}" method="POST" class="space-y-2 text-xs">
+                        <input type="text" name="project_name" required placeholder="Project Title" class="w-full p-2 rounded border">
+                        <select name="service_category" class="w-full p-2 rounded border">
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile App (Android/iOS)">Mobile App (Android/iOS)</option>
+                            <option value="Hospital ERP">Hospital ERP</option>
+                            <option value="School ERP">School ERP</option>
+                            <option value="Billing / POS">Billing / POS</option>
+                        </select>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="number" step="0.01" name="project_value" placeholder="Contract Value (₹)" class="p-2 rounded border">
+                            <input type="number" step="0.01" name="advance_received" placeholder="Advance Paid (₹)" class="p-2 rounded border">
+                        </div>
+                        <input type="date" name="deadline" class="w-full p-2 rounded border">
+                        <button type="submit" class="w-full bg-navy-900 text-white font-bold py-2 rounded">Create Project Workflow</button>
+                    </form>
+                </div>
+
+                <div class="space-y-3">
+                    {% for p in projects %}
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-navy-900 text-sm">{{ p.project_name }}</h4>
+                                <p class="text-[11px] text-slate-500">{{ p.service_category }}</p>
+                            </div>
+                            <span class="bg-blue-100 text-brandBlue text-[10px] font-extrabold px-2 py-0.5 rounded">{{ p.stage }}</span>
+                        </div>
+                        <div class="flex justify-between text-xs font-semibold pt-2 border-t border-slate-200">
+                            <span>Value: <strong class="text-navy-900">₹{{ "{:,.0f}".format(p.project_value) }}</strong></span>
+                            <span>Due: <strong class="text-rose-600">₹{{ "{:,.0f}".format(p.balance_due) }}</strong></span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Task Assignment -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h3 class="text-base font-extrabold text-navy-900">📌 Task Dispatch & Status</h3>
+                    <button onclick="document.getElementById('taskModal').classList.toggle('hidden')" class="bg-navy-900 text-white text-xs font-bold px-3 py-1.5 rounded">Assign Task</button>
+                </div>
+
+                <div id="taskModal" class="hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <form action="{{ url_for('add_task') }}" method="POST" class="space-y-2 text-xs">
+                        <input type="text" name="title" required placeholder="Task Description" class="w-full p-2 rounded border">
+                        <select name="assigned_to_id" class="w-full p-2 rounded border font-bold">
+                            {% for u in users %}
+                            <option value="{{ u.id }}">{{ u.name }} ({{ u.role }})</option>
+                            {% endfor %}
+                        </select>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select name="priority" class="p-2 rounded border">
+                                <option value="Medium">Medium Priority</option>
+                                <option value="High">High Priority</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                            <input type="date" name="deadline" class="p-2 rounded border">
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-2 rounded">Assign Task</button>
+                    </form>
+                </div>
+
+                <div class="space-y-3">
+                    {% for t in tasks %}
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                        <div>
+                            <p class="font-bold text-navy-900">{{ t.title }}</p>
+                            <p class="text-[10px] text-slate-400">Deadline: {{ t.deadline or 'N/A' }}</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded font-bold text-[10px] bg-amber-100 text-amber-800">{{ t.status }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECTION 4: FINANCIAL & INCENTIVE MANAGEMENT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                <h3 class="text-base font-extrabold text-navy-900">💰 Partner & Team Incentives Ledger</h3>
+                <button onclick="document.getElementById('incModal').classList.toggle('hidden')" class="bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded">Log Incentive</button>
+            </div>
+
+            <div id="incModal" class="hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <form action="{{ url_for('add_incentive') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+                    <select name="user_id" required class="p-2 rounded border font-bold">
+                        {% for u in users %}
+                        <option value="{{ u.id }}">{{ u.name }} ({{ u.role }})</option>
+                        {% endfor %}
+                    </select>
+                    <select name="user_role" required class="p-2 rounded border">
+                        <option value="team">Team Incentive</option>
+                        <option value="partner">Partner Commission</option>
+                    </select>
+                    <input type="number" step="0.01" name="amount_earned" placeholder="Total Earned (₹)" class="p-2 rounded border">
+                    <input type="number" step="0.01" name="amount_paid" placeholder="Amount Paid (₹)" class="p-2 rounded border">
+                    <button type="submit" class="sm:col-span-4 bg-navy-900 text-white font-bold py-2 rounded">Record Incentive Ledger</button>
+                </form>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 font-bold border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Recipient</th>
+                            <th class="py-2.5 px-3">Role</th>
+                            <th class="py-2.5 px-3">Earned</th>
+                            <th class="py-2.5 px-3">Paid</th>
+                            <th class="py-2.5 px-3">Pending</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for i in incentives %}
+                        <tr>
+                            <td class="py-2 px-3 font-bold text-navy-900">{{ i.user_name }}</td>
+                            <td class="py-2 px-3 uppercase text-[10px] font-bold">{{ i.user_role }}</td>
+                            <td class="py-2 px-3 font-bold">₹{{ "{:,.2f}".format(i.amount_earned) }}</td>
+                            <td class="py-2 px-3 font-bold text-emerald-600">₹{{ "{:,.2f}".format(i.amount_paid) }}</td>
+                            <td class="py-2 px-3 font-bold text-rose-600">₹{{ "{:,.2f}".format(i.amount_pending) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 5: DOCUMENT & FILE VAULT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-base font-extrabold text-navy-900 border-b border-slate-100 pb-3">📁 Corporate Document & Material Vault</h3>
+            <form action="{{ url_for('upload_document') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <input type="text" name="title" required placeholder="Document / Proposal Title" class="p-2 rounded border">
+                <select name="category" class="p-2 rounded border">
+                    <option value="Proposal">Proposal / Quotation</option>
+                    <option value="Client Document">Client Document</option>
+                    <option value="Code Asset">Code Asset / Screenshot</option>
+                </select>
+                <input type="file" name="file" required class="p-1.5 rounded border bg-white">
+                <button type="submit" class="bg-brandBlue text-white font-bold py-2 rounded">Upload to Vault</button>
+            </form>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                {% for doc in documents %}
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-navy-900">{{ doc.title }}</p>
+                        <p class="text-[10px] text-slate-400">{{ doc.category }}</p>
+                    </div>
+                    <a href="{{ doc.file_path }}" target="_blank" class="text-brandBlue font-bold hover:underline"><i class="fa-solid fa-download"></i> Open</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

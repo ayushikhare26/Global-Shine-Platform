@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Global Shine | Premium IT & Enterprise Software Engineering Solutions</title>
+
+    <!-- Meta Description for Technical SEO -->
+    <meta name="description" content="Global Shine Digital Solutions Pvt. Ltd. - Enterprise Software Engineering, Custom ERP/CRM, Web & Mobile App Development (Android & iOS). Lucknow, India.">
+    <meta name="keywords" content="Global Shine, Global Shine IT Solutions, Software Development Lucknow, Custom ERP, CRM Software, Web Development India, React Native App Development, Hospital Management Software">
+    <meta name="author" content="Global Shine Digital Solutions Pvt. Ltd.">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Global Shine | Enterprise Software & IT Solutions">
+    <meta property="og:description" content="Your Vision..! Our Premium Digital Transformation..!! World-class custom software, web & mobile app engineering.">
+    <meta property="og:image" content="http://localhost/static/images/logo.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="/static/images/logo.jpg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'xs': '375px',
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1280px',
+                    '2xl': '1536px',
+                },
+                extend: {
+                    colors: {
+                        slateDark: '#0f172a',
+                        slateNavy: '#1e293b',
+                        itIndigo: '#4f46e5',
+                        itBlue: '#2563eb',
+                        itCyan: '#0284c7',
+                        lightBg: '#f8fafc'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-gentle': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* Subtle Grid Pattern */
+        .it-grid-pattern {
+            background-image: radial-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .gs-watermark-overlay {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            opacity: 0.06;
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            pointer-events: none;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+        
+        /* PRELOADER STYLES */
+        #gs-page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+        }
+        #gs-page-loader.loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .logo-pulse-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-pulse-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #4f46e5;
+            border-right-color: #0284c7;
+            animation: gs-spin 1s linear infinite;
+        }
+        .logo-pulse-ring-outer {
+            position: absolute;
+            inset: -18px;
+            border-radius: 50%;
+            border: 1px dashed rgba(15, 23, 42, 0.15);
+            animation: gs-spin-reverse 4s linear infinite;
+        }
+        @keyframes gs-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes gs-spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Subtle Hover Cards */
+        .it-card-hover {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .it-card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.08);
+            border-color: #cbd5e1;
+        }
+    </style>
+    
+<!-- JSON-LD Schema.org Structured Data for Google Search Indexing -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ITSoftwareCompany",
+  "name": "Global Shine Digital Solutions Pvt. Ltd.",
+  "alternateName": "Global Shine IT Solutions",
+  "url": "http://www.globalshine.in",
+  "logo": "http://www.globalshine.in/static/images/logo.jpg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-9005874417",
+    "contactType": "customer service",
+    "areaServed": "IN",
+    "availableLanguage": "English, Hindi"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "116, Manas Vihar, Indira Nagar",
+    "addressLocality": "Lucknow",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "226016",
+    "addressCountry": "IN"
+  },
+  "founder": [
+    {
+      "@type": "Person",
+      "name": "Nishant Chaturvedi",
+      "jobTitle": "Director"
+    },
+    {
+      "@type": "Person",
+      "name": "Abhishek Chaturvedi",
+      "jobTitle": "Digital Business Strategist"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="it-grid-pattern min-h-screen flex flex-col antialiased">
+
+    <!-- ELEGANT IT PRELOADER -->
+    <div id="gs-page-loader">
+        <div class="logo-pulse-container mb-5">
+            <div class="logo-pulse-ring-outer"></div>
+            <div class="logo-pulse-ring"></div>
+            <img src="/static/images/logo.jpg" alt="Global Shine Logo" class="w-20 h-20 object-contain rounded-full shadow border border-slate-100 bg-white p-1">
+        </div>
+
+        <div class="text-center space-y-2 max-w-xs px-4">
+            <div class="flex items-center justify-center space-x-1.5">
+                <span class="text-lg font-extrabold tracking-tight text-slateDark">GLOBAL</span>
+                <span class="text-lg font-extrabold tracking-tight text-itIndigo">SHINE</span>
+            </div>
+            <p class="text-[10px] font-mono font-bold text-slate-400 tracking-wider uppercase" id="gs-loader-status">
+                INITIALIZING ENTERPRISE ENGINE...
+            </p>
+
+            <div class="w-56 h-1 bg-slate-100 rounded-full overflow-hidden mx-auto border border-slate-200">
+                <div id="gs-loader-bar" class="h-full bg-gradient-to-r from-itIndigo to-itCyan w-0 transition-all duration-300"></div>
+            </div>
+
+            <p class="text-[10px] font-mono text-itIndigo font-bold" id="gs-loader-percent">0%</p>
+        </div>
+    </div>
+
+    <!-- Top Contact & Announcement Bar -->
+    <div class="bg-slateDark text-slate-300 text-xs py-1.5 px-3 sm:px-6 shadow-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px]">
+                <span class="flex items-center space-x-1.5">
+                    <i class="fa-solid fa-headset text-itCyan"></i>
+                    <span>Customer Care: <a href="tel:+919005874417" class="hover:underline font-bold text-white">+91 9005874417</a></span>
+                </span>
+                <span class="hidden sm:flex items-center space-x-1.5">
+                    <i class="fa-solid fa-handshake text-emerald-400"></i>
+                    <span>Business: <a href="tel:+919104313824" class="hover:underline">+91 9104313824</a> / <a href="tel:+919792009307" class="hover:underline">+91 9792009307</a></span>
+                </span>
+                <span class="hidden lg:flex items-center space-x-1.5">
+                    <i class="fa-envelope text-sky-400"></i>
+                    <span>globalshinedigitals@gmail.com</span>
+                </span>
+            </div>
+            <div class="flex items-center space-x-3 text-[11px]">
+                <span class="hidden md:inline bg-itIndigo/20 text-indigo-300 px-2 py-0.5 rounded font-medium border border-itIndigo/30">
+                    Enterprise IT & Software Engineering
+                </span>
+                
+                    <a href="/login" class="text-white hover:text-sky-200 font-medium flex items-center gap-1 bg-itIndigo px-2.5 py-0.5 rounded text-[11px] shadow-sm">
+                        <i class="fa-solid fa-lock text-[10px]"></i> Portal Sign In
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar (Fully Device Friendly Responsive) -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Logo Brand Title -->
+                <a href="/" class="flex items-center space-x-2.5 group">
+                    <img src="/static/images/logo.jpg" alt="Global Shine Logo" class="h-10 w-auto object-contain rounded-md border border-slate-200 group-hover:scale-105 transition-transform">
+                    <div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-lg font-extrabold tracking-tight text-slateDark">GLOBAL</span>
+                            <span class="text-lg font-extrabold tracking-tight text-itIndigo">SHINE</span>
+                        </div>
+                        <p class="text-[9px] font-semibold text-slate-500 tracking-wide uppercase leading-none">IT & Enterprise Solutions</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex items-center space-x-7 text-xs font-semibold text-slate-700">
+                    <a href="/" class="hover:text-itIndigo transition-colors py-1">Home</a>
+                    <a href="/#positioning" class="hover:text-itIndigo transition-colors py-1">Company</a>
+                    <a href="/#services" class="hover:text-itIndigo transition-colors py-1">Services</a>
+                    <a href="/#tech-stack" class="hover:text-itIndigo transition-colors py-1">Tech Stack</a>
+                    <a href="/#client-appreciation" class="hover:text-itIndigo transition-colors text-itIndigo font-bold py-1">Client Appreciation</a>
+                    <a href="/#contact" class="hover:text-itIndigo transition-colors py-1">Contact</a>
+                </div>
+
+                <!-- Action CTA & Mobile Menu Toggle Button -->
+                <div class="flex items-center space-x-2.5">
+                    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine%20Team,%20I%20want%20to%20discuss%20an%20IT%20/%20Software%20project." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span class="hidden sm:inline">WhatsApp IT Desk</span>
+                    </a>
+                    
+                    
+
+                    <!-- Mobile Hamburger Button -->
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden text-slateDark p-2 rounded-lg hover:bg-slate-100 focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-lg" id="mobileMenuIcon"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation (iPhone, Android, Foldables friendly) -->
+        <div id="mobileMenuDrawer" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-4 space-y-2 shadow-lg">
+            <a href="/" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Home</a>
+            <a href="/#positioning" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Company Positioning</a>
+            <a href="/#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">IT Services & Solutions</a>
+            <a href="/#tech-stack" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Tech Stack</a>
+            <a href="/#client-appreciation" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-itIndigo bg-indigo-50">Client Appreciation (10 Indian Clients)</a>
+            <a href="/#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Contact Us</a>
+            
+            <div class="pt-2 border-t border-slate-100 flex flex-col space-y-2">
+                
+                    <a href="/login" class="text-center bg-itIndigo text-white text-xs font-bold py-2 rounded-lg">Sign In to Portal</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Notifications -->
+    <div class="max-w-7xl mx-auto px-4 mt-3 w-full">
+        
+            
+        
+    </div>
+
+    <!-- Main Viewport -->
+    <main class="flex-grow">
+        
+
+<!-- HERO SECTION (Sleek, Compact, High-End IT Theme) -->
+<section class="relative bg-gradient-to-b from-white via-slate-50 to-indigo-50/30 py-12 lg:py-16 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Hero Left Content -->
+            <div class="lg:col-span-7 space-y-4">
+                
+                <div class="inline-flex items-center space-x-2 bg-indigo-50 text-itIndigo px-3 py-1 rounded-full text-xs font-bold border border-indigo-100">
+                    <span class="w-2 h-2 rounded-full bg-itIndigo animate-pulse"></span>
+                    <span>Enterprise IT & Software Engineering House</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slateDark tracking-tight leading-tight">
+                    Transforming Business Visions into <span class="text-transparent bg-clip-text bg-gradient-to-r from-itIndigo to-itBlue">World-Class IT Solutions</span>
+                </h1>
+
+                <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-2xl">
+                    <strong class="text-slateDark">Global Shine Digital Solutions Pvt. Ltd.</strong> engineers high-performance web applications, native mobile apps, custom ERPs, CRMs, and enterprise business management software tailored for real growth.
+                </p>
+
+                <!-- Tagline Badge -->
+                <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 max-w-xl">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 text-itIndigo flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm font-bold text-slateDark italic">
+                        “Your Vision..! Our Premium Digital Transformation..!!”
+                    </p>
+                </div>
+
+                <!-- CTAs -->
+                <div class="pt-2 flex flex-wrap items-center gap-3">
+                    <a href="#contact" class="bg-itIndigo hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-lg shadow-md transition-all flex items-center gap-2">
+                        <span>Initiate Software Project</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine,%20I%20want%20to%20consult%20regarding%20an%20IT%20solution." target="_blank" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-xs sm:text-sm px-4 py-3 rounded-lg shadow-sm transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+                        <span>Consult Technical Lead</span>
+                    </a>
+                </div>
+
+                <!-- Quick Metrics Bar -->
+                <div class="grid grid-cols-3 gap-3 pt-4 border-t border-slate-200/80 max-w-lg">
+                    <div>
+                        <p class="text-xl sm:text-2xl font-extrabold text-slateDark">100%</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">Custom Engineering</p>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-extrabold text-itIndigo">10+</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">Indian Enterprise Clients</p>
+                    </div>
+                    <div>
+                        <p class="text-xl sm:text-2xl font-extrabold text-emerald-600">24/7</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">System Uptime</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Hero Right IT Visual Widget -->
+            <div class="lg:col-span-5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-lg space-y-4">
+                    
+                    <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-400">globalshine_enterprise_stack.v1</span>
+                    </div>
+
+                    <div class="space-y-2.5">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded bg-indigo-100 text-itIndigo flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-cubes"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slateDark">Custom ERP & CRM Software</p>
+                                    <p class="text-[10px] text-slate-500">Automated Enterprise Workflows</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Active</span>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded bg-blue-100 text-itBlue flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-mobile-screen"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slateDark">Cross-Platform Mobile Apps</p>
+                                    <p class="text-[10px] text-slate-500">React Native (Android & iOS)</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-indigo-100 text-itIndigo font-bold px-2 py-0.5 rounded">Deploy Ready</span>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded bg-cyan-100 text-itCyan flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-server"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slateDark">Hospital & School Portals</p>
+                                    <p class="text-[10px] text-slate-500">OPD, Billing & Student ERP</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-blue-100 text-itBlue font-bold px-2 py-0.5 rounded">Scalable</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-slateDark text-white rounded-xl text-xs space-y-1">
+                        <p class="text-indigo-300 font-bold text-[11px]">System Reliability Assurance</p>
+                        <p class="text-[10px] text-slate-300 leading-normal">
+                            High availability cloud architecture, OAuth security, and optimized REST APIs engineered by Global Shine.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- COMPANY POSITIONING SECTION (Clean, Concise) -->
+<section id="positioning" class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center space-y-3">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-itIndigo bg-indigo-50 px-3 py-0.5 rounded-full border border-indigo-100">Company Positioning</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slateDark">Fundamentally a Pure Software & IT Engineering House</h2>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                Global Shine is structured specifically as a technology development enterprise. We design and build backend infrastructure, database schemas, complex business management software, and custom applications for hospitals, educational institutions, retail chains, and commercial clients across India.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 it-card-hover">
+                <div class="w-10 h-10 rounded-lg bg-itIndigo text-white flex items-center justify-center text-lg mb-3">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <h3 class="text-base font-bold text-slateDark mb-1.5">Custom Software Engineering</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Custom web software built from scratch using React, Node, PHP/Laravel, clean APIs, and normalized database schemas.
+                </p>
+            </div>
+
+            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 it-card-hover">
+                <div class="w-10 h-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-lg mb-3">
+                    <i class="fa-solid fa-building-user"></i>
+                </div>
+                <h3 class="text-base font-bold text-slateDark mb-1.5">Enterprise ERP & CRM</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Unified ERP platforms for schools, colleges, hospitals, retail billing/POS, and pharmacy inventory management.
+                </p>
+            </div>
+
+            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 it-card-hover">
+                <div class="w-10 h-10 rounded-lg bg-itBlue text-white flex items-center justify-center text-lg mb-3">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+                <h3 class="text-base font-bold text-slateDark mb-1.5">Mobile Application Engineering</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Native-performance mobile application development for Android and iOS integrated with secure cloud backends.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section id="services" class="py-14 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-1">
+            <span class="text-[11px] font-bold text-itIndigo uppercase tracking-widest">Capabilities</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slateDark">IT Services & Specialized Software Solutions</h2>
+            <p class="text-slate-600 text-xs">Engineered for accuracy, operational ease, and technical scalability.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm it-card-hover">
+                <div class="w-9 h-9 rounded-lg bg-indigo-50 text-itIndigo flex items-center justify-center text-base mb-3">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h3 class="font-bold text-slateDark text-sm mb-1.5">Website & Web App Development</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Responsive corporate portals, web platforms, and REST microservices engineered using modern component architecture.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm it-card-hover">
+                <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-base mb-3">
+                    <i class="fa-solid fa-hospital-user"></i>
+                </div>
+                <h3 class="font-bold text-slateDark text-sm mb-1.5">Hospital & Pharmacy Software</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">OPD/IPD management, doctor scheduling, electronic health records, patient registration, and pharmacy billing systems.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm it-card-hover">
+                <div class="w-9 h-9 rounded-lg bg-blue-50 text-itBlue flex items-center justify-center text-base mb-3">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h3 class="font-bold text-slateDark text-sm mb-1.5">School & College ERP</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Student lifecycle management, fee receipts, attendance tracking, exam gradecards, and parent/faculty communication portals.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm it-card-hover">
+                <div class="w-9 h-9 rounded-lg bg-cyan-50 text-itCyan flex items-center justify-center text-base mb-3">
+                    <i class="fa-solid fa-cash-register"></i>
+                </div>
+                <h3 class="font-bold text-slateDark text-sm mb-1.5">POS & Billing Automation</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Multi-outlet point of sale, barcode integration, inventory tracking, GST invoicing, and daily cash reconciliations.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm it-card-hover">
+                <div class="w-9 h-9 rounded-lg bg-indigo-50 text-itIndigo flex items-center justify-center text-base mb-3">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <h3 class="font-bold text-slateDark text-sm mb-1.5">Android & iOS App Development</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Native performance mobile applications using React Native, offline database sync, and push notifications.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm it-card-hover">
+                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slateDark flex items-center justify-center text-base mb-3">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <h3 class="font-bold text-slateDark text-sm mb-1.5">AI Automation & Integrations</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Intelligent process automation, automated WhatsApp webhooks, RESTful API integrations, and custom database pipelines.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- TECH STACK SHOWCASE -->
+<section id="tech-stack" class="py-14 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-1">
+            <span class="text-[11px] font-bold text-itIndigo uppercase tracking-widest">Tech Stack</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slateDark">Engineering Stack & Standards</h2>
+            <p class="text-slate-600 text-xs">We build using battle-tested technical frameworks ensuring high uptime, security, and low latency.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold text-slateDark text-xs mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-itIndigo"></i>
+                    <span>Frontend Engineering</span>
+                </h4>
+                <ul class="text-[11px] text-slate-600 space-y-1 font-medium">
+                    <li>• HTML5 & CSS3 Responsive Standard</li>
+                    <li>• JavaScript (ES6+ / Modern JS)</li>
+                    <li>• React.js Component Architecture</li>
+                    <li>• Cross-Device Viewport Optimization</li>
+                </ul>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold text-slateDark text-xs mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-server text-emerald-600"></i>
+                    <span>Backend Architecture</span>
+                </h4>
+                <ul class="text-[11px] text-slate-600 space-y-1 font-medium">
+                    <li>• PHP & Laravel Frameworks</li>
+                    <li>• Node.js & Express API Servers</li>
+                    <li>• RESTful Microservice Design</li>
+                    <li>• Role-Based Access Control (RBAC)</li>
+                </ul>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold text-slateDark text-xs mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-database text-itBlue"></i>
+                    <span>Database & Security</span>
+                </h4>
+                <ul class="text-[11px] text-slate-600 space-y-1 font-medium">
+                    <li>• MySQL & Relational DB Schemas</li>
+                    <li>• Data Normalization & Backups</li>
+                    <li>• Encrypted Sessions & Auth</li>
+                    <li>• High Concurrency Transaction Handling</li>
+                </ul>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold text-slateDark text-xs mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-cloud text-itCyan"></i>
+                    <span>Cloud & Technical SEO</span>
+                </h4>
+                <ul class="text-[11px] text-slate-600 space-y-1 font-medium">
+                    <li>• Linux Web Server Deployment</li>
+                    <li>• SSL / HTTPS Security Encryption</li>
+                    <li>• Sitemap.xml & Google Indexing</li>
+                    <li>• WhatsApp API & Notification Hooks</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- DEDICATED CLIENT APPRECIATION SECTION (10 INDIAN CLIENTS) -->
+<section id="client-appreciation" class="py-16 bg-slate-100 border-b border-slate-200 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-itIndigo bg-indigo-100 px-3 py-0.5 rounded-full border border-indigo-200">
+                Client Success & Social Proof
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slateDark">
+                Client Appreciation & Testimonials
+            </h2>
+            <p class="text-slate-600 text-xs sm:text-sm">
+                Trusted by doctors, entrepreneurs, educational institutions, and corporate enterprises across Uttar Pradesh, New Delhi, and India.
+            </p>
+        </div>
+
+        <!-- 10 Indian Clients Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “A Complete Digital Transformation for a Modern Healthcare Brand.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine Digital Solutions completely transformed the digital presence of Vimla Skin Clinic. Their team engineered a seamless patient engagement website, online branding, and custom appointment management setup. Highly professional IT partners!
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        DR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Dr. Abhay Mishra
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Dermatologist
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Vimla Skin Clinic • Jalaun, Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Exceptional Hospital Management Software &amp; Digital Engineering.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine built our enterprise hospital management portal with outstanding speed and security. Their technical depth in custom healthcare software is truly top-tier.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        DR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Dr. Ajay Shrivastava
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            MD Chest Physician &amp; DM Cardiologist
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Aadityam Chest &amp; Dietary Centre Hospital • Gorakhpur, Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Reliable IT Solutions &amp; Custom Software Architecture.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        The team at Global Shine delivered a robust, secure, and fast patient portal tailored precisely to our requirements. Excellent support and flawless execution.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        DR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Dr. Sarvendra Vikram Singh
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            MD Chest Physician
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Medical Clinic • Kushinagar, Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Streamlined POS &amp; Billing Automation for Multi-Outlet Retail.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine&#39;s billing &amp; POS automation system transformed our daily sales tracking across outlets. Their IT solutions are fast, modern, and user-friendly.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        MR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Mr. Kunal Shrivastava
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Founder &amp; Managing Director
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Chai Chaska (Chai &amp; Samosa Co.) • Paalm Paradise, Gorakhpur
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Modern E-Commerce &amp; Interactive Digital Experience.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine created an extraordinary online food ordering web app for Food Paradise. The user experience is lightning fast and our order volume increased significantly!
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        KH
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Khushi Verma
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Entrepreneur &amp; Founder
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Food Paradise • Paalm Paradise, Gorakhpur
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Top-Grade Enterprise ERP &amp; Business Automation.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Working with Global Shine was a game changer for our operations. They digitized our inventory, invoicing, and reporting into a unified cloud portal.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        MR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Mr. Manish Pathak
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Entrepreneur &amp; Business Owner
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Pathak Enterprises • Gorakhpur, Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “High Performance Cloud Infrastructure &amp; Custom Apps.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine brings international-level engineering standards. Their custom web solutions and API integrations are reliable, secure, and scalable.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        MR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Mr. Durgesh Dubey
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Entrepreneur &amp; Tech Partner
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Dubey Commercial Services • Gorakhpur, Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Comprehensive College ERP &amp; Student Management Portal.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine developed a complete campus ERP system covering admissions, fee management, student records, and exam portals. Outstanding technical capability!
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        SH
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Sharda Devi Memorial College
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Management Board
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Sharda Devi Memorial College • Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Secure Legal Management &amp; Client Communication Platform.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine developed our corporate web ecosystem with strict data privacy and seamless document handling. Their team is dedicated, punctual, and highly skilled.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        MR
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Mr. Sanjeev Singh
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Advocate &amp; Legal Managing Director
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            VRSS Management Services • Uttar Pradesh
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative flex flex-col justify-between it-card-hover">
+                
+                <!-- Watermark overlay on card -->
+                <div class="gs-watermark-overlay">GLOBAL SHINE</div>
+
+                <div>
+                    <!-- Rating Stars -->
+                    <div class="flex items-center space-x-1 text-amber-400 mb-2.5 text-xs">
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                            <i class="fa-solid fa-star"></i>
+                        
+                    </div>
+
+                    <!-- Testimonial Headline -->
+                    <h3 class="text-sm font-bold text-slateDark mb-2 leading-snug">
+                        “Scalable Enterprise Software &amp; National Web Presence.”
+                    </h3>
+
+                    <!-- Review Text -->
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4 italic">
+                        Global Shine engineered our multi-branch inventory and client portal seamlessly. Their technical support and post-deployment service are unmatched.
+                    </p>
+                </div>
+
+                <!-- Client Info Footer -->
+                <div class="pt-3 border-t border-slate-100 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slateDark text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0">
+                        SH
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-extrabold text-slateDark text-xs truncate">
+                            Shri Siddhi Vinayak Enterprises
+                        </h4>
+                        <p class="text-[10px] font-semibold text-itIndigo truncate">
+                            Corporate Management
+                        </p>
+                        <p class="text-[9px] text-slate-500 truncate">
+                            Shri Siddhi Vinayak Enterprises • New Delhi
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+</section>
+
+<!-- CONTACT & ENQUIRY SECTION -->
+<section id="contact" class="py-14 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Company Info & Direct Contacts -->
+            <div class="lg:col-span-5 space-y-4">
+                <div>
+                    <span class="text-[11px] font-bold text-itIndigo uppercase tracking-widest">Connect With Us</span>
+                    <h2 class="text-2xl font-extrabold text-slateDark mt-1">Let's Discuss Your IT Project</h2>
+                    <p class="text-slate-600 text-xs mt-1 leading-relaxed">
+                        Our technical leadership is ready to analyze your requirements, provide project estimates, and schedule software demonstrations.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-50 text-itIndigo flex items-center justify-center text-sm flex-shrink-0">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slateDark">Customer Care & Support</p>
+                            <p class="text-xs font-extrabold text-itIndigo">+91 9005874417</p>
+                            <p class="text-[10px] text-slate-500">Phone & WhatsApp desk</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm flex-shrink-0">
+                            <i class="fa-solid fa-handshake"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slateDark">Partnership & Business Operations</p>
+                            <p class="text-xs font-extrabold text-emerald-700">+91 9104313824 / +91 9792009307</p>
+                            <p class="text-[10px] text-slate-500">Business strategy & partnerships</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-blue-50 text-itBlue flex items-center justify-center text-sm flex-shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slateDark">Registered Office</p>
+                            <p class="text-xs text-slate-700 font-semibold">116, Manas Vihar, Indira Nagar, Lucknow 226016, Uttar Pradesh, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enquiry Form -->
+            <div class="lg:col-span-7 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-extrabold text-slateDark mb-1">Send a Project Enquiry</h3>
+                <p class="text-xs text-slate-500 mb-4">Complete the form below to receive a technical consultation call from our team.</p>
+
+                <form action="/enquire" method="POST" class="space-y-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Your Full Name *</label>
+                            <input type="text" name="name" required placeholder="e.g. Dr. Abhay Mishra" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Mobile Number *</label>
+                            <input type="tel" name="phone" required placeholder="e.g. +91 9005874417" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Email Address</label>
+                            <input type="email" name="email" placeholder="e.g. info@company.com" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Required IT Service</label>
+                            <select name="service" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white font-medium">
+                                <option value="Custom Web App Development">Custom Web App Development</option>
+                                <option value="Android / iOS Mobile App">Android / iOS Mobile App</option>
+                                <option value="Hospital & Pharmacy Software">Hospital & Pharmacy Software</option>
+                                <option value="School / College ERP System">School / College ERP System</option>
+                                <option value="Billing / POS Software">Billing / POS Software</option>
+                                <option value="Enterprise ERP & CRM">Enterprise ERP & CRM</option>
+                                <option value="AI Automation Solutions">AI Automation Solutions</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Project Details & Requirements</label>
+                        <textarea name="message" rows="3" placeholder="Briefly describe your software requirements or features needed..." class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-slateDark hover:bg-slateNavy text-white font-bold text-xs py-2.5 rounded-lg shadow transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Submit Requirement</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine,%20I%20need%20assistance%20with%20custom%20software%20/%20IT%20solutions." target="_blank" class="fixed bottom-5 right-5 bg-emerald-600 hover:bg-emerald-700 text-white p-3.5 rounded-full shadow-xl z-50 flex items-center justify-center transition-all hover:scale-105 group" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-semibold pl-0 group-hover:pl-2">Connect IT Expert</span>
+    </a>
+
+    <!-- Compact IT Corporate Footer -->
+    <footer class="bg-slateDark text-slate-300 pt-12 pb-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Company Info & Logo -->
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2.5">
+                        <img src="/static/images/logo.jpg" alt="Global Shine Logo" class="h-8 w-auto rounded bg-white p-0.5">
+                        <span class="text-lg font-extrabold text-white">GLOBAL SHINE</span>
+                    </div>
+                    <p class="text-itIndigo font-semibold text-xs italic">“Your Vision..! Our Premium Digital Transformation..!!”</p>
+                    <p class="text-xs text-slate-400 leading-normal">
+                        Global Shine Digital Solutions Pvt. Ltd. is a premier IT & software engineering company developing custom enterprise web applications, mobile apps, ERPs, CRMs, and POS billing software.
+                    </p>
+                    <div class="text-xs text-slate-400 space-y-0.5">
+                        <p><strong class="text-white">Director:</strong> Nishant Chaturvedi</p>
+                        <p><strong class="text-white">Digital Strategist:</strong> Abhishek Chaturvedi</p>
+                    </div>
+                </div>
+
+                <!-- Verticals -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Our IT Divisions</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine IT Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Digital Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine App & Website Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Software Engineering</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Social Media Solutions</li>
+                    </ul>
+                </div>
+
+                <!-- Products -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Enterprise Software</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Custom ERP & CRM Software</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Hospital & Pharmacy Portals</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>School & Campus Management</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>POS & Billing Systems</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Android & iOS Mobile Apps</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>AI Automation & REST APIs</li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Registered Office</h4>
+                    <div class="text-xs text-slate-400 space-y-2">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-itIndigo mt-0.5 text-xs"></i>
+                            <span>116, Manas Vihar, Indira Nagar, Lucknow 226016, UP, India</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-emerald-400 text-xs"></i>
+                            <span>+91 9005874417</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-handshake text-sky-400 text-xs"></i>
+                            <span>+91 9104313824 / +91 9792009307</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-amber-400 text-xs"></i>
+                            <span>globalshinedigitals@gmail.com</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800 mt-8 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500 gap-2">
+                <p>&copy; 2026 Global Shine Digital Solutions Pvt. Ltd. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="/sitemap.xml" class="hover:text-slate-300">Sitemap</a>
+                    <a href="/robots.txt" class="hover:text-slate-300">Robots.txt</a>
+                    <a href="/login" class="hover:text-slate-300">Employee/Partner Portal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Preloader script
+        document.addEventListener("DOMContentLoaded", function() {
+            var loader = document.getElementById("gs-page-loader");
+            var bar = document.getElementById("gs-loader-bar");
+            var percent = document.getElementById("gs-loader-percent");
+            var status = document.getElementById("gs-loader-status");
+
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.floor(Math.random() * 25) + 20;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    status.textContent = "CORE SYSTEM READY.";
+                    setTimeout(function() {
+                        loader.classList.add("loader-hidden");
+                    }, 350);
+                }
+                bar.style.width = progress + "%";
+                percent.textContent = progress + "%";
+            }, 60);
+        });
+
+        // Mobile drawer toggle
+        function toggleMobileMenu() {
+            var drawer = document.getElementById("mobileMenuDrawer");
+            var icon = document.getElementById("mobileMenuIcon");
+            drawer.classList.toggle("hidden");
+            if (drawer.classList.contains("hidden")) {
+                icon.className = "fa-solid fa-bars text-lg";
+            } else {
+                icon.className = "fa-solid fa-xmark text-lg";
+            }
+        }
+    </script>
+</body>
+</html>

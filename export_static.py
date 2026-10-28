@@ -33,10 +33,6 @@ def export_all():
         # 1. Home Page
         res = client.get('/')
         home_html = make_relative(res.data.decode('utf-8'))
-        # WhatsApp + Netlify Form integration
-        form_enhancement = '''<form name="project-enquiry" method="POST" data-netlify="true" onsubmit="event.preventDefault(); var n=this.name.value; var p=this.phone.value; var s=this.service.value; var m=this.message.value; window.open('https://wa.me/919005874417?text=' + encodeURIComponent('New Project Requirement from ' + n + ' (' + p + ') for ' + s + ': ' + m), '_blank'); alert('Thank you! Opening WhatsApp to connect directly with the Technical Lead.');" class="space-y-3">
-        <input type="hidden" name="form-name" value="project-enquiry" />'''
-        home_html = re.sub(r'<form action="/enquire"[^>]*class="space-y-3">', form_enhancement, home_html)
         pages['index.html'] = home_html
 
         # 2. Login Page
@@ -48,19 +44,6 @@ def export_all():
         client.post('/login', data={'username': 'admin', 'password': 'admin123'})
         res_admin = client.get('/admin/dashboard')
         admin_html = make_relative(res_admin.data.decode('utf-8'))
-        # Add quick client-side message for static forms in admin dashboard
-        admin_html += """
-        <script>
-        document.querySelectorAll('form').forEach(function(f) {
-            f.addEventListener('submit', function(e) {
-                if (window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('netlify.app')) {
-                    e.preventDefault();
-                    alert('Action simulated successfully in demo mode!');
-                }
-            });
-        });
-        </script>
-        """
         pages['admin.html'] = admin_html
 
         # 4. Team Dashboard

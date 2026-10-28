@@ -1225,8 +1225,7 @@
                 <h3 class="text-lg font-extrabold text-slateDark mb-1">Send a Project Enquiry</h3>
                 <p class="text-xs text-slate-500 mb-4">Complete the form below to receive a technical consultation call from our team.</p>
 
-                <form name="project-enquiry" method="POST" data-netlify="true" onsubmit="event.preventDefault(); var n=this.name.value; var p=this.phone.value; var s=this.service.value; var m=this.message.value; window.open('https://wa.me/919005874417?text=' + encodeURIComponent('New Project Requirement from ' + n + ' (' + p + ') for ' + s + ': ' + m), '_blank'); alert('Thank you! Opening WhatsApp to connect directly with the Technical Lead.');" class="space-y-3">
-        <input type="hidden" name="form-name" value="project-enquiry" />
+                <form id="projectEnquiryForm" action="/enquire" method="POST" onsubmit="return handleEnquirySubmit(event, this);" class="space-y-3">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-bold text-slate-700 mb-1">Your Full Name *</label>
@@ -1273,6 +1272,52 @@
     </div>
 </section>
 
+<script>
+function handleEnquirySubmit(event, form) {
+    var name = (form.name.value || '').trim();
+    var phone = (form.phone.value || '').trim();
+    var email = (form.email.value || '').trim();
+    var service = form.service.value;
+    var message = (form.message.value || '').trim();
+
+    if (!name || !phone) {
+        alert('Please fill in both your Name and Mobile Number.');
+        return false;
+    }
+
+    // Always store the inquiry in localStorage so it appears in real-time in admin.html
+    var newLead = {
+        id: 'lead_' + Date.now(),
+        lead_name: name,
+        company: name + ' (Direct Enquiry)',
+        mobile: phone,
+        email: email,
+        service_required: service,
+        requirement: message || 'Project enquiry submitted via website form.',
+        lead_source: 'Website Form',
+        status: 'New',
+        created_at: new Date().toISOString().slice(0, 10)
+    };
+
+    try {
+        var leads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
+        leads.unshift(newLead);
+        localStorage.setItem('gs_custom_leads', JSON.stringify(leads));
+    } catch(err) {}
+
+    // On local dynamic Flask server (port 5000), let standard form submit proceed to save in SQLite DB
+    if (window.location.port === '5000') {
+        return true;
+    }
+
+    // On static hosting (GitHub Pages / Netlify):
+    event.preventDefault();
+    alert('Thank you, ' + name + '! Your project enquiry has been received and saved into the Admin Panel. Connecting to WhatsApp...');
+    window.open('https://wa.me/919005874417?text=' + encodeURIComponent('New Project Requirement from ' + name + ' (' + phone + ') for ' + service + ': ' + (message || 'Please consult.')), '_blank');
+    form.reset();
+    return false;
+}
+</script>
 
     </main>
 

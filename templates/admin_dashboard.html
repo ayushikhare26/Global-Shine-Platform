@@ -116,7 +116,7 @@
                             <th class="py-3 px-4 text-center">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody id="leadsTableBody" class="divide-y divide-slate-100">
                         {% for l in leads %}
                         <tr class="hover:bg-slate-50/80 transition-colors">
                             <td class="py-3 px-4">
@@ -554,7 +554,83 @@ function deleteLeadRow(btn, url) {
     }
 }
 
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function renderCustomLeads() {
+    try {
+        var customLeads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
+        var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
+        var tbody = document.getElementById('leadsTableBody');
+        if (!tbody || customLeads.length === 0) return;
+
+        var emptyRow = tbody.querySelector('td[colspan="6"]');
+        if (emptyRow) emptyRow.closest('tr').remove();
+
+        // Loop through each custom lead and prepend if not already displayed
+        customLeads.slice().reverse().forEach(function(l) {
+            if (deleted.includes(l.id)) return;
+            if (document.querySelector('button[data-lead-id="' + l.id + '"]')) return;
+
+            var tr = document.createElement('tr');
+            tr.className = 'hover:bg-slate-50/80 transition-colors bg-blue-50/30 border-l-4 border-l-itIndigo';
+            var safeMobile = (l.mobile || '').replace(/[^0-9]/g, '');
+            tr.innerHTML = `
+                <td class="py-3 px-4">
+                    <div class="flex items-center gap-1.5">
+                        <span class="bg-itIndigo text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded">NEW</span>
+                        <span class="font-extrabold text-navy-900">${escapeHtml(l.lead_name)}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">
+                        ${l.company ? escapeHtml(l.company) + ' • ' : ''}
+                        <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">${escapeHtml(l.lead_source || 'Website Form')}</span>
+                    </span>
+                    ${l.email ? `<div class="text-[10px] text-slate-500 mt-0.5"><a href="mailto:${escapeHtml(l.email)}" class="text-brandBlue hover:underline">${escapeHtml(l.email)}</a></div>` : ''}
+                </td>
+                <td class="py-3 px-4">
+                    <div class="font-bold text-slate-800 flex items-center gap-1.5">
+                        <span>${escapeHtml(l.mobile)}</span>
+                        ${l.mobile ? `
+                        <a href="https://wa.me/${safeMobile}" target="_blank" class="text-emerald-600 hover:text-emerald-700 text-sm" title="Chat on WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="tel:${escapeHtml(l.mobile)}" class="text-sky-600 hover:text-sky-700 text-xs" title="Call">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>` : ''}
+                    </div>
+                    <div class="text-[10px] text-slate-400">${escapeHtml(l.created_at || 'Just Now')}</div>
+                </td>
+                <td class="py-3 px-4 font-semibold text-itIndigo">
+                    <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
+                        ${escapeHtml(l.service_required || 'Custom Software')}
+                    </span>
+                </td>
+                <td class="py-3 px-4 max-w-xs">
+                    <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                        ${escapeHtml(l.requirement || 'No details provided')}
+                    </p>
+                </td>
+                <td class="py-3 px-4">
+                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">🟢 ${escapeHtml(l.status || 'New')}</span>
+                </td>
+                <td class="py-3 px-4 text-center">
+                    <button type="button" data-lead-id="${l.id}" onclick="event.preventDefault(); event.stopPropagation(); deleteLeadRow(this, ''); return false;" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+        });
+    } catch(err) {
+        console.error(err);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    renderCustomLeads();
+
     if (window.location.port !== '5000') {
         try {
             var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
@@ -567,7 +643,43 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } catch(err) {}
 
+        // Handle Add Lead Modal Form
+        var addLeadForm = document.querySelector('form[action*="add-lead"]');
+        if (addLeadForm) {
+            addLeadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var name = (addLeadForm.lead_name.value || '').trim();
+                var mobile = (addLeadForm.mobile.value || '').trim();
+                if (!name || !mobile) {
+                    alert('Please enter Name and Mobile number.');
+                    return;
+                }
+                var newLead = {
+                    id: 'lead_' + Date.now(),
+                    lead_name: name,
+                    company: addLeadForm.company.value || '',
+                    mobile: mobile,
+                    email: addLeadForm.email.value || '',
+                    service_required: addLeadForm.service_required.value || 'Custom Software',
+                    requirement: addLeadForm.notes.value || 'Manual Entry in Admin',
+                    lead_source: 'Admin Manual',
+                    status: 'New',
+                    created_at: new Date().toISOString().slice(0, 10)
+                };
+                try {
+                    var leads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
+                    leads.unshift(newLead);
+                    localStorage.setItem('gs_custom_leads', JSON.stringify(leads));
+                } catch(err) {}
+                renderCustomLeads();
+                showToast('New lead added to CRM!');
+                addLeadForm.reset();
+                document.getElementById('leadModal').classList.add('hidden');
+            });
+        }
+
         document.querySelectorAll('form').forEach(function(form) {
+            if (form.getAttribute('action') && form.getAttribute('action').includes('add-lead')) return;
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 showToast('Action saved successfully!');

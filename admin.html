@@ -36,6 +36,11 @@
                     colors: {
                         slateDark: '#0f172a',
                         slateNavy: '#1e293b',
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        brandBlue: '#2563eb',
                         itIndigo: '#4f46e5',
                         itBlue: '#2563eb',
                         itCyan: '#0284c7',
@@ -448,29 +453,29 @@
                                 </p>
                             </td>
                             <td class="py-3 px-4">
-                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5">
+                                <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('3', this); return false;" class="flex flex-col gap-1.5">
                                     <input type="hidden" name="lead_id" value="3">
                                     <div class="flex items-center gap-1">
-                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                        <select name="status" onchange="saveLeadStatus('3', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
                                             <option value="New" selected>🟢 New</option>
                                             <option value="Discussion" >🟡 In Discussion</option>
                                             <option value="Quotation" >🔵 Quotation Sent</option>
                                             <option value="Won" >🏆 Won / Converted</option>
                                             <option value="Lost" >❌ Lost</option>
                                         </select>
-                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                        <select name="assigned_team_id" onchange="saveLeadStatus('3', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
                                             <option value="">Assign Team</option>
                                             
                                             <option value="2" >Amit Verma</option>
                                             
                                         </select>
-                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                        <select name="assigned_partner_id" onchange="saveLeadStatus('3', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
                                             <option value="">Assign Partner</option>
                                             
                                             <option value="3" >Abhishek Chaturvedi</option>
                                             
                                         </select>
-                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                        <button type="submit" class="bg-slateDark hover:bg-slateNavy text-white px-2.5 py-1 rounded text-[10px] font-bold shadow-sm transition-colors" title="Save Status">Save</button>
                                     </div>
                                 </form>
                             </td>
@@ -519,29 +524,29 @@
                                 </p>
                             </td>
                             <td class="py-3 px-4">
-                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5">
+                                <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('2', this); return false;" class="flex flex-col gap-1.5">
                                     <input type="hidden" name="lead_id" value="2">
                                     <div class="flex items-center gap-1">
-                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                        <select name="status" onchange="saveLeadStatus('2', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
                                             <option value="New" selected>🟢 New</option>
                                             <option value="Discussion" >🟡 In Discussion</option>
                                             <option value="Quotation" >🔵 Quotation Sent</option>
                                             <option value="Won" >🏆 Won / Converted</option>
                                             <option value="Lost" >❌ Lost</option>
                                         </select>
-                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                        <select name="assigned_team_id" onchange="saveLeadStatus('2', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
                                             <option value="">Assign Team</option>
                                             
                                             <option value="2" >Amit Verma</option>
                                             
                                         </select>
-                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                        <select name="assigned_partner_id" onchange="saveLeadStatus('2', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
                                             <option value="">Assign Partner</option>
                                             
                                             <option value="3" >Abhishek Chaturvedi</option>
                                             
                                         </select>
-                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                        <button type="submit" class="bg-slateDark hover:bg-slateNavy text-white px-2.5 py-1 rounded text-[10px] font-bold shadow-sm transition-colors" title="Save Status">Save</button>
                                     </div>
                                 </form>
                             </td>
@@ -590,29 +595,29 @@
                                 </p>
                             </td>
                             <td class="py-3 px-4">
-                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5">
+                                <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('1', this); return false;" class="flex flex-col gap-1.5">
                                     <input type="hidden" name="lead_id" value="1">
                                     <div class="flex items-center gap-1">
-                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                        <select name="status" onchange="saveLeadStatus('1', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
                                             <option value="New" selected>🟢 New</option>
                                             <option value="Discussion" >🟡 In Discussion</option>
                                             <option value="Quotation" >🔵 Quotation Sent</option>
                                             <option value="Won" >🏆 Won / Converted</option>
                                             <option value="Lost" >❌ Lost</option>
                                         </select>
-                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                        <select name="assigned_team_id" onchange="saveLeadStatus('1', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
                                             <option value="">Assign Team</option>
                                             
                                             <option value="2" >Amit Verma</option>
                                             
                                         </select>
-                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                        <select name="assigned_partner_id" onchange="saveLeadStatus('1', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
                                             <option value="">Assign Partner</option>
                                             
                                             <option value="3" >Abhishek Chaturvedi</option>
                                             
                                         </select>
-                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                        <button type="submit" class="bg-slateDark hover:bg-slateNavy text-white px-2.5 py-1 rounded text-[10px] font-bold shadow-sm transition-colors" title="Save Status">Save</button>
                                     </div>
                                 </form>
                             </td>
@@ -953,31 +958,85 @@ function showToast(msg) {
     }
 }
 
+var TEAM_OPTIONS_HTML = `
+    <option value="">Assign Team</option>
+    
+    <option value="2">Amit Verma</option>
+    
+`;
+
+var PARTNER_OPTIONS_HTML = `
+    <option value="">Assign Partner</option>
+    
+    <option value="3">Abhishek Chaturvedi</option>
+    
+`;
+
 function deleteLeadRow(btn, url) {
     if (confirm('Are you sure you want to delete this lead record?')) {
-        if (window.location.port === '5000') {
+        var leadId = btn.getAttribute('data-lead-id');
+        if (window.location.port === '5000' && url) {
             window.location.href = url;
-        } else {
-            var leadId = btn.getAttribute('data-lead-id');
-            if (leadId) {
-                try {
-                    var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
-                    if (!deleted.includes(leadId)) {
-                        deleted.push(leadId);
-                        localStorage.setItem('gs_deleted_leads', JSON.stringify(deleted));
-                    }
-                } catch(err) {}
-            }
-            var tr = btn.closest('tr');
-            if (tr) {
-                tr.style.transition = 'all 0.3s ease';
-                tr.style.opacity = '0';
-                tr.style.transform = 'scale(0.95)';
-                setTimeout(function() { tr.remove(); }, 300);
-            }
-            showToast('Lead record deleted successfully!');
+            return;
         }
+
+        if (leadId) {
+            try {
+                var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
+                if (!deleted.includes(leadId)) {
+                    deleted.push(leadId);
+                    localStorage.setItem('gs_deleted_leads', JSON.stringify(deleted));
+                }
+                var customLeads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
+                customLeads = customLeads.filter(function(cl) { return String(cl.id) !== String(leadId); });
+                localStorage.setItem('gs_custom_leads', JSON.stringify(customLeads));
+            } catch(err) {}
+        }
+        var tr = btn.closest('tr');
+        if (tr) {
+            tr.style.transition = 'all 0.3s ease';
+            tr.style.opacity = '0';
+            tr.style.transform = 'scale(0.95)';
+            setTimeout(function() { tr.remove(); }, 300);
+        }
+        showToast('Lead record deleted successfully!');
     }
+}
+
+function saveLeadStatus(leadId, form) {
+    if (!form) return;
+    var status = form.status ? form.status.value : 'New';
+    var teamId = form.assigned_team_id ? form.assigned_team_id.value : '';
+    var partnerId = form.assigned_partner_id ? form.assigned_partner_id.value : '';
+
+    if (window.location.port === '5000') {
+        form.submit();
+        return;
+    }
+
+    try {
+        var customLeads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
+        var found = false;
+        for (var i = 0; i < customLeads.length; i++) {
+            if (String(customLeads[i].id) === String(leadId)) {
+                customLeads[i].status = status;
+                customLeads[i].assigned_team_id = teamId;
+                customLeads[i].assigned_partner_id = partnerId;
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            localStorage.setItem('gs_custom_leads', JSON.stringify(customLeads));
+        } else {
+            var overrides = JSON.parse(localStorage.getItem('gs_lead_overrides') || '{}');
+            overrides[leadId] = { status: status, assigned_team_id: teamId, assigned_partner_id: partnerId };
+            localStorage.setItem('gs_lead_overrides', JSON.stringify(overrides));
+        }
+    } catch(err) {
+        console.error(err);
+    }
+    showToast('Lead status & assignments updated!');
 }
 
 function escapeHtml(text) {
@@ -995,22 +1054,23 @@ function renderCustomLeads() {
         var emptyRow = tbody.querySelector('td[colspan="6"]');
         if (emptyRow) emptyRow.closest('tr').remove();
 
-        // Loop through each custom lead and prepend if not already displayed
         customLeads.slice().reverse().forEach(function(l) {
-            if (deleted.includes(l.id)) return;
+            if (deleted.includes(String(l.id))) return;
             if (document.querySelector('button[data-lead-id="' + l.id + '"]')) return;
 
             var tr = document.createElement('tr');
-            tr.className = 'hover:bg-slate-50/80 transition-colors bg-blue-50/30 border-l-4 border-l-itIndigo';
+            tr.className = 'hover:bg-slate-50/80 transition-colors';
             var safeMobile = (l.mobile || '').replace(/[^0-9]/g, '');
+            var companyDisplay = l.company ? escapeHtml(l.company) + ' • ' : (escapeHtml(l.lead_name) + ' (Enquiry) • ');
+            var curStatus = l.status || 'New';
+            var assignedTeam = l.assigned_team_id || '';
+            var assignedPartner = l.assigned_partner_id || '';
+
             tr.innerHTML = `
                 <td class="py-3 px-4">
-                    <div class="flex items-center gap-1.5">
-                        <span class="bg-itIndigo text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded">NEW</span>
-                        <span class="font-extrabold text-navy-900">${escapeHtml(l.lead_name)}</span>
-                    </div>
+                    <span class="font-extrabold text-navy-900 block">${escapeHtml(l.lead_name)}</span>
                     <span class="text-[10px] text-slate-400">
-                        ${l.company ? escapeHtml(l.company) + ' • ' : ''}
+                        ${companyDisplay}
                         <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">${escapeHtml(l.lead_source || 'Website Form')}</span>
                     </span>
                     ${l.email ? `<div class="text-[10px] text-slate-500 mt-0.5"><a href="mailto:${escapeHtml(l.email)}" class="text-brandBlue hover:underline">${escapeHtml(l.email)}</a></div>` : ''}
@@ -1026,7 +1086,7 @@ function renderCustomLeads() {
                             <i class="fa-solid fa-phone"></i>
                         </a>` : ''}
                     </div>
-                    <div class="text-[10px] text-slate-400">${escapeHtml(l.created_at || 'Just Now')}</div>
+                    <div class="text-[10px] text-slate-400">${escapeHtml(l.created_at || 'Recent')}</div>
                 </td>
                 <td class="py-3 px-4 font-semibold text-itIndigo">
                     <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
@@ -1034,12 +1094,30 @@ function renderCustomLeads() {
                     </span>
                 </td>
                 <td class="py-3 px-4 max-w-xs">
-                    <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
-                        ${escapeHtml(l.requirement || 'No details provided')}
+                    <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed font-medium">
+                        ${escapeHtml(l.requirement || l.notes || 'No details provided')}
                     </p>
                 </td>
                 <td class="py-3 px-4">
-                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">🟢 ${escapeHtml(l.status || 'New')}</span>
+                    <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('${l.id}', this); return false;" class="flex flex-col gap-1.5">
+                        <input type="hidden" name="lead_id" value="${l.id}">
+                        <div class="flex items-center gap-1">
+                            <select name="status" onchange="saveLeadStatus('${l.id}', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
+                                <option value="New" ${curStatus === 'New' ? 'selected' : ''}>🟢 New</option>
+                                <option value="Discussion" ${curStatus === 'Discussion' ? 'selected' : ''}>🟡 In Discussion</option>
+                                <option value="Quotation" ${curStatus === 'Quotation' ? 'selected' : ''}>🔵 Quotation Sent</option>
+                                <option value="Won" ${curStatus === 'Won' ? 'selected' : ''}>🏆 Won / Converted</option>
+                                <option value="Lost" ${curStatus === 'Lost' ? 'selected' : ''}>❌ Lost</option>
+                            </select>
+                            <select name="assigned_team_id" onchange="saveLeadStatus('${l.id}', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
+                                ${TEAM_OPTIONS_HTML}
+                            </select>
+                            <select name="assigned_partner_id" onchange="saveLeadStatus('${l.id}', this.form)" class="p-1 rounded border border-slate-300 text-[10px] bg-white cursor-pointer hover:border-slate-400">
+                                ${PARTNER_OPTIONS_HTML}
+                            </select>
+                            <button type="submit" class="bg-slateDark hover:bg-slateNavy text-white px-2.5 py-1 rounded text-[10px] font-bold shadow-sm transition-colors" title="Save Status">Save</button>
+                        </div>
+                    </form>
                 </td>
                 <td class="py-3 px-4 text-center">
                     <button type="button" data-lead-id="${l.id}" onclick="event.preventDefault(); event.stopPropagation(); deleteLeadRow(this, ''); return false;" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
@@ -1048,6 +1126,18 @@ function renderCustomLeads() {
                 </td>
             `;
             tbody.insertBefore(tr, tbody.firstChild);
+
+            var trElem = tbody.firstChild;
+            if (trElem) {
+                if (assignedTeam) {
+                    var tSel = trElem.querySelector('select[name="assigned_team_id"]');
+                    if (tSel) tSel.value = assignedTeam;
+                }
+                if (assignedPartner) {
+                    var pSel = trElem.querySelector('select[name="assigned_partner_id"]');
+                    if (pSel) pSel.value = assignedPartner;
+                }
+            }
         });
     } catch(err) {
         console.error(err);
@@ -1069,7 +1159,20 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } catch(err) {}
 
-        // Handle Add Lead Modal Form
+        try {
+            var overrides = JSON.parse(localStorage.getItem('gs_lead_overrides') || '{}');
+            for (var leadId in overrides) {
+                var input = document.querySelector('input[name="lead_id"][value="' + leadId + '"]');
+                if (input && input.form) {
+                    var f = input.form;
+                    var ov = overrides[leadId];
+                    if (ov.status && f.status) f.status.value = ov.status;
+                    if (ov.assigned_team_id !== undefined && f.assigned_team_id) f.assigned_team_id.value = ov.assigned_team_id;
+                    if (ov.assigned_partner_id !== undefined && f.assigned_partner_id) f.assigned_partner_id.value = ov.assigned_partner_id;
+                }
+            }
+        } catch(err) {}
+
         var addLeadForm = document.querySelector('form[action*="add-lead"]');
         if (addLeadForm) {
             addLeadForm.addEventListener('submit', function(e) {
@@ -1090,6 +1193,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     requirement: addLeadForm.notes.value || 'Manual Entry in Admin',
                     lead_source: 'Admin Manual',
                     status: 'New',
+                    assigned_team_id: addLeadForm.assigned_team_id ? addLeadForm.assigned_team_id.value : '',
+                    assigned_partner_id: addLeadForm.assigned_partner_id ? addLeadForm.assigned_partner_id.value : '',
                     created_at: new Date().toISOString().slice(0, 10)
                 };
                 try {
@@ -1105,7 +1210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         document.querySelectorAll('form').forEach(function(form) {
-            if (form.getAttribute('action') && form.getAttribute('action').includes('add-lead')) return;
+            if (form.getAttribute('action') && (form.getAttribute('action').includes('add-lead') || form.getAttribute('action').includes('update-lead'))) return;
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 showToast('Action saved successfully!');

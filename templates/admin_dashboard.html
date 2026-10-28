@@ -183,7 +183,7 @@
                                 </form>
                             </td>
                             <td class="py-3 px-4 text-center">
-                                <button type="button" onclick="deleteLeadRow(this, '{{ url_for('delete_lead', lead_id=l.id) }}')" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
+                                <button type="button" data-lead-id="{{ l.id }}" onclick="event.preventDefault(); event.stopPropagation(); deleteLeadRow(this, '{{ url_for('delete_lead', lead_id=l.id) }}'); return false;" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
@@ -532,6 +532,16 @@ function deleteLeadRow(btn, url) {
         if (window.location.port === '5000') {
             window.location.href = url;
         } else {
+            var leadId = btn.getAttribute('data-lead-id');
+            if (leadId) {
+                try {
+                    var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
+                    if (!deleted.includes(leadId)) {
+                        deleted.push(leadId);
+                        localStorage.setItem('gs_deleted_leads', JSON.stringify(deleted));
+                    }
+                } catch(err) {}
+            }
             var tr = btn.closest('tr');
             if (tr) {
                 tr.style.transition = 'all 0.3s ease';
@@ -546,6 +556,17 @@ function deleteLeadRow(btn, url) {
 
 document.addEventListener('DOMContentLoaded', function() {
     if (window.location.port !== '5000') {
+        try {
+            var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
+            deleted.forEach(function(id) {
+                var btn = document.querySelector('button[data-lead-id="' + id + '"]');
+                if (btn) {
+                    var tr = btn.closest('tr');
+                    if (tr) tr.remove();
+                }
+            });
+        } catch(err) {}
+
         document.querySelectorAll('form').forEach(function(form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();

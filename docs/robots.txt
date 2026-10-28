@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /team/
+Disallow: /partner/
+Disallow: /client/
+Sitemap: http://localhost/sitemap.xml

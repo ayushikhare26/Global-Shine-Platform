@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Admin Master Console | Global Shine</title>
+
+    <!-- Meta Description for Technical SEO -->
+    <meta name="description" content="Global Shine Digital Solutions Pvt. Ltd. - Enterprise Software Engineering, Custom ERP/CRM, Web & Mobile App Development (Android & iOS). Lucknow, India.">
+    <meta name="keywords" content="Global Shine, Global Shine IT Solutions, Software Development Lucknow, Custom ERP, CRM Software, Web Development India, React Native App Development, Hospital Management Software">
+    <meta name="author" content="Global Shine Digital Solutions Pvt. Ltd.">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Global Shine | Enterprise Software & IT Solutions">
+    <meta property="og:description" content="Your Vision..! Our Premium Digital Transformation..!! World-class custom software, web & mobile app engineering.">
+    <meta property="og:image" content="./static/images/logo.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="./static/images/logo.jpg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'xs': '375px',
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1280px',
+                    '2xl': '1536px',
+                },
+                extend: {
+                    colors: {
+                        slateDark: '#0f172a',
+                        slateNavy: '#1e293b',
+                        itIndigo: '#4f46e5',
+                        itBlue: '#2563eb',
+                        itCyan: '#0284c7',
+                        lightBg: '#f8fafc'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-gentle': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* Subtle Grid Pattern */
+        .it-grid-pattern {
+            background-image: radial-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .gs-watermark-overlay {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            opacity: 0.06;
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            pointer-events: none;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+        
+        /* PRELOADER STYLES */
+        #gs-page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+        }
+        #gs-page-loader.loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .logo-pulse-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-pulse-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #4f46e5;
+            border-right-color: #0284c7;
+            animation: gs-spin 1s linear infinite;
+        }
+        .logo-pulse-ring-outer {
+            position: absolute;
+            inset: -18px;
+            border-radius: 50%;
+            border: 1px dashed rgba(15, 23, 42, 0.15);
+            animation: gs-spin-reverse 4s linear infinite;
+        }
+        @keyframes gs-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes gs-spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Subtle Hover Cards */
+        .it-card-hover {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .it-card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.08);
+            border-color: #cbd5e1;
+        }
+    </style>
+    
+</head>
+<body class="it-grid-pattern min-h-screen flex flex-col antialiased">
+
+    <!-- ELEGANT IT PRELOADER -->
+    <div id="gs-page-loader">
+        <div class="logo-pulse-container mb-5">
+            <div class="logo-pulse-ring-outer"></div>
+            <div class="logo-pulse-ring"></div>
+            <img src="./static/images/logo.jpg" alt="Global Shine Logo" class="w-20 h-20 object-contain rounded-full shadow border border-slate-100 bg-white p-1">
+        </div>
+
+        <div class="text-center space-y-2 max-w-xs px-4">
+            <div class="flex items-center justify-center space-x-1.5">
+                <span class="text-lg font-extrabold tracking-tight text-slateDark">GLOBAL</span>
+                <span class="text-lg font-extrabold tracking-tight text-itIndigo">SHINE</span>
+            </div>
+            <p class="text-[10px] font-mono font-bold text-slate-400 tracking-wider uppercase" id="gs-loader-status">
+                INITIALIZING ENTERPRISE ENGINE...
+            </p>
+
+            <div class="w-56 h-1 bg-slate-100 rounded-full overflow-hidden mx-auto border border-slate-200">
+                <div id="gs-loader-bar" class="h-full bg-gradient-to-r from-itIndigo to-itCyan w-0 transition-all duration-300"></div>
+            </div>
+
+            <p class="text-[10px] font-mono text-itIndigo font-bold" id="gs-loader-percent">0%</p>
+        </div>
+    </div>
+
+    <!-- Top Contact & Announcement Bar -->
+    <div class="bg-slateDark text-slate-300 text-xs py-1.5 px-3 sm:px-6 shadow-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px]">
+                <span class="flex items-center space-x-1.5">
+                    <i class="fa-solid fa-headset text-itCyan"></i>
+                    <span>Customer Care: <a href="tel:+919005874417" class="hover:underline font-bold text-white">+91 9005874417</a></span>
+                </span>
+                <span class="hidden sm:flex items-center space-x-1.5">
+                    <i class="fa-solid fa-handshake text-emerald-400"></i>
+                    <span>Business: <a href="tel:+919104313824" class="hover:underline">+91 9104313824</a> / <a href="tel:+919792009307" class="hover:underline">+91 9792009307</a></span>
+                </span>
+                <span class="hidden lg:flex items-center space-x-1.5">
+                    <i class="fa-envelope text-sky-400"></i>
+                    <span>globalshinedigitals@gmail.com</span>
+                </span>
+            </div>
+            <div class="flex items-center space-x-3 text-[11px]">
+                <span class="hidden md:inline bg-itIndigo/20 text-indigo-300 px-2 py-0.5 rounded font-medium border border-itIndigo/30">
+                    Enterprise IT & Software Engineering
+                </span>
+                
+                    <a href="login.html" class="text-rose-300 hover:text-white font-medium flex items-center gap-1">
+                        <i class="fa-solid fa-right-from-bracket text-[10px]"></i> Logout
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar (Fully Device Friendly Responsive) -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Logo Brand Title -->
+                <a href="index.html" class="flex items-center space-x-2.5 group">
+                    <img src="./static/images/logo.jpg" alt="Global Shine Logo" class="h-10 w-auto object-contain rounded-md border border-slate-200 group-hover:scale-105 transition-transform">
+                    <div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-lg font-extrabold tracking-tight text-slateDark">GLOBAL</span>
+                            <span class="text-lg font-extrabold tracking-tight text-itIndigo">SHINE</span>
+                        </div>
+                        <p class="text-[9px] font-semibold text-slate-500 tracking-wide uppercase leading-none">IT & Enterprise Solutions</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex items-center space-x-7 text-xs font-semibold text-slate-700">
+                    <a href="index.html" class="hover:text-itIndigo transition-colors py-1">Home</a>
+                    <a href="index.html#positioning" class="hover:text-itIndigo transition-colors py-1">Company</a>
+                    <a href="index.html#services" class="hover:text-itIndigo transition-colors py-1">Services</a>
+                    <a href="index.html#tech-stack" class="hover:text-itIndigo transition-colors py-1">Tech Stack</a>
+                    <a href="index.html#client-appreciation" class="hover:text-itIndigo transition-colors text-itIndigo font-bold py-1">Client Appreciation</a>
+                    <a href="index.html#contact" class="hover:text-itIndigo transition-colors py-1">Contact</a>
+                </div>
+
+                <!-- Action CTA & Mobile Menu Toggle Button -->
+                <div class="flex items-center space-x-2.5">
+                    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine%20Team,%20I%20want%20to%20discuss%20an%20IT%20/%20Software%20project." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span class="hidden sm:inline">WhatsApp IT Desk</span>
+                    </a>
+                    
+                    
+                        
+                            <a href="admin.html" class="hidden sm:inline-block bg-slateDark hover:bg-slateNavy text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm">Dashboard</a>
+                        
+                    
+
+                    <!-- Mobile Hamburger Button -->
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden text-slateDark p-2 rounded-lg hover:bg-slate-100 focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-lg" id="mobileMenuIcon"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation (iPhone, Android, Foldables friendly) -->
+        <div id="mobileMenuDrawer" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-4 space-y-2 shadow-lg">
+            <a href="index.html" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Home</a>
+            <a href="index.html#positioning" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Company Positioning</a>
+            <a href="index.html#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">IT Services & Solutions</a>
+            <a href="index.html#tech-stack" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Tech Stack</a>
+            <a href="index.html#client-appreciation" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-itIndigo bg-indigo-50">Client Appreciation (10 Indian Clients)</a>
+            <a href="index.html#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Contact Us</a>
+            
+            <div class="pt-2 border-t border-slate-100 flex flex-col space-y-2">
+                
+                    <a href="admin.html" class="text-center bg-slateDark text-white text-xs font-bold py-2 rounded-lg">Go to Dashboard</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Notifications -->
+    <div class="max-w-7xl mx-auto px-4 mt-3 w-full">
+        
+            
+                
+                    <div class="p-3 mb-2 rounded-lg border text-xs font-medium flex justify-between items-center shadow-sm 
+                         bg-emerald-50 text-emerald-800 border-emerald-200
+                        ">
+                        <span>Welcome back, Nishant Chaturvedi!</span>
+                        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 font-bold ml-4">&times;</button>
+                    </div>
+                
+            
+        
+    </div>
+
+    <!-- Main Viewport -->
+    <main class="flex-grow">
+        
+<div class="py-8 bg-slate-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-navy-900 text-white text-xs font-bold px-2.5 py-0.5 rounded">Super Admin</span>
+                    <span class="text-xs text-slate-400 font-mono">GS-DIR-001</span>
+                </div>
+                <h1 class="text-2xl font-extrabold text-navy-900 mt-1">Global Shine Master Control Console</h1>
+                <p class="text-xs text-slate-500">Welcome, Nishant Chaturvedi (Director). Enterprise Operations & CRM System.</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="id-card.html" target="_blank" class="bg-brandBlue hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>My Digital ID Card</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Financial & Operational KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Total Project Pipeline Value</p>
+                <p class="text-2xl font-extrabold text-navy-900 mt-1">₹0.00</p>
+                <p class="text-[10px] text-slate-400 mt-1">Gross Contract Value</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Revenue Collected</p>
+                <p class="text-2xl font-extrabold text-emerald-600 mt-1">₹0.00</p>
+                <p class="text-[10px] text-emerald-600 mt-1">Received via Advances & Milestones</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Pending Balances Due</p>
+                <p class="text-2xl font-extrabold text-rose-600 mt-1">₹0.00</p>
+                <p class="text-[10px] text-rose-500 mt-1">Client Receivables Outstanding</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Leads & Active Clients</p>
+                <p class="text-2xl font-extrabold text-brandBlue mt-1">0 Clients / 3 Leads</p>
+                <p class="text-[10px] text-slate-400 mt-1">CRM Active Records</p>
+            </div>
+        </div>
+
+        <!-- SECTION 0: WEBSITE ENQUIRIES & CRM LEADS (Direct Form Submissions) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-slate-100">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <h3 class="text-lg font-extrabold text-navy-900">📥 Incoming Website Enquiries & Leads CRM</h3>
+                    </div>
+                    <p class="text-xs text-slate-500">Real-time submissions from the "Send a Project Enquiry" website form & CRM leads</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="document.getElementById('leadModal').classList.toggle('hidden')" class="bg-brandBlue hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-plus"></i> Add Lead Manually
+                    </button>
+                </div>
+            </div>
+
+            <!-- Manual Lead Creation Form -->
+            <div id="leadModal" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 class="text-sm font-bold text-navy-900 mb-3">Create New CRM Lead</h4>
+                <form action="/admin/add-lead" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <input type="text" name="lead_name" required placeholder="Lead / Client Name" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="company" placeholder="Company / Organization" class="p-2.5 rounded border border-slate-300">
+                    <input type="tel" name="mobile" required placeholder="Mobile / Phone Number" class="p-2.5 rounded border border-slate-300">
+                    <input type="email" name="email" placeholder="Email Address" class="p-2.5 rounded border border-slate-300">
+                    <select name="service_required" class="p-2.5 rounded border border-slate-300 font-bold">
+                        <option value="Custom Web App Development">Custom Web App Development</option>
+                        <option value="Android / iOS Mobile App">Android / iOS Mobile App</option>
+                        <option value="Hospital & Pharmacy Software">Hospital & Pharmacy Software</option>
+                        <option value="School / College ERP System">School / College ERP System</option>
+                        <option value="Billing / POS Software">Billing / POS Software</option>
+                        <option value="Enterprise ERP & CRM">Enterprise ERP & CRM</option>
+                        <option value="AI Automation Solutions">AI Automation Solutions</option>
+                    </select>
+                    <select name="assigned_team_id" class="p-2.5 rounded border border-slate-300">
+                        <option value="">Assign Team Member (Optional)</option>
+                        
+                        <option value="2">Amit Verma (Team)</option>
+                        
+                    </select>
+                    <select name="assigned_partner_id" class="p-2.5 rounded border border-slate-300">
+                        <option value="">Assign Partner (Optional)</option>
+                        
+                        <option value="3">Abhishek Chaturvedi (Partner)</option>
+                        
+                    </select>
+                    <input type="date" name="follow_up_date" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="notes" placeholder="Requirement notes / remarks" class="p-2.5 rounded border border-slate-300 sm:col-span-3">
+                    <button type="submit" class="sm:col-span-3 bg-brandBlue text-white font-bold py-2 rounded">Create & Save Lead</button>
+                </form>
+            </div>
+
+            <!-- Leads & Enquiries Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">Contact Person</th>
+                            <th class="py-3 px-4">Phone & WhatsApp</th>
+                            <th class="py-3 px-4">Service Required</th>
+                            <th class="py-3 px-4">Project Requirements / Notes</th>
+                            <th class="py-3 px-4">Status & Assignment</th>
+                            <th class="py-3 px-4 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="py-3 px-4">
+                                <span class="font-extrabold text-navy-900 block">Disthi</span>
+                                <span class="text-[10px] text-slate-400">
+                                    Disthi (Enquiry) • 
+                                    <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">Website Form</span>
+                                </span>
+                                
+                                <div class="text-[10px] text-slate-500 mt-0.5">
+                                    <a href="mailto:bliss@gmail.com" class="text-brandBlue hover:underline">bliss@gmail.com</a>
+                                </div>
+                                
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <span>8840311444</span>
+                                    
+                                    <a href="https://wa.me/8840311444" target="_blank" class="text-emerald-600 hover:text-emerald-700 text-sm" title="Chat on WhatsApp">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                    <a href="tel:8840311444" class="text-sky-600 hover:text-sky-700 text-xs" title="Call">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </a>
+                                    
+                                </div>
+                                <div class="text-[10px] text-slate-400">2026-10-27</div>
+                            </td>
+                            <td class="py-3 px-4 font-semibold text-itIndigo">
+                                <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
+                                    Custom Web App Development
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 max-w-xs">
+                                <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
+                                    No details provided
+                                </p>
+                            </td>
+                            <td class="py-3 px-4">
+                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5">
+                                    <input type="hidden" name="lead_id" value="3">
+                                    <div class="flex items-center gap-1">
+                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                            <option value="New" selected>🟢 New</option>
+                                            <option value="Discussion" >🟡 In Discussion</option>
+                                            <option value="Quotation" >🔵 Quotation Sent</option>
+                                            <option value="Won" >🏆 Won / Converted</option>
+                                            <option value="Lost" >❌ Lost</option>
+                                        </select>
+                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Team</option>
+                                            
+                                            <option value="2" >Amit Verma</option>
+                                            
+                                        </select>
+                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Partner</option>
+                                            
+                                            <option value="3" >Abhishek Chaturvedi</option>
+                                            
+                                        </select>
+                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                    </div>
+                                </form>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <a href="/admin/delete-lead/3" onclick="return confirm('Delete this lead record?')" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="py-3 px-4">
+                                <span class="font-extrabold text-navy-900 block">Dr. Abhay Mishra</span>
+                                <span class="text-[10px] text-slate-400">
+                                    Dr. Abhay Mishra (Enquiry) • 
+                                    <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">Website Form</span>
+                                </span>
+                                
+                                <div class="text-[10px] text-slate-500 mt-0.5">
+                                    <a href="mailto:dr.abhay@vimlasolutions.com" class="text-brandBlue hover:underline">dr.abhay@vimlasolutions.com</a>
+                                </div>
+                                
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <span>+91 9005874417</span>
+                                    
+                                    <a href="https://wa.me/919005874417" target="_blank" class="text-emerald-600 hover:text-emerald-700 text-sm" title="Chat on WhatsApp">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                    <a href="tel:+91 9005874417" class="text-sky-600 hover:text-sky-700 text-xs" title="Call">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </a>
+                                    
+                                </div>
+                                <div class="text-[10px] text-slate-400">2026-10-27</div>
+                            </td>
+                            <td class="py-3 px-4 font-semibold text-itIndigo">
+                                <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
+                                    Hospital &amp; Pharmacy Software
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 max-w-xs">
+                                <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
+                                    Require OPD management and custom web portal.
+                                </p>
+                            </td>
+                            <td class="py-3 px-4">
+                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5">
+                                    <input type="hidden" name="lead_id" value="2">
+                                    <div class="flex items-center gap-1">
+                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                            <option value="New" selected>🟢 New</option>
+                                            <option value="Discussion" >🟡 In Discussion</option>
+                                            <option value="Quotation" >🔵 Quotation Sent</option>
+                                            <option value="Won" >🏆 Won / Converted</option>
+                                            <option value="Lost" >❌ Lost</option>
+                                        </select>
+                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Team</option>
+                                            
+                                            <option value="2" >Amit Verma</option>
+                                            
+                                        </select>
+                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Partner</option>
+                                            
+                                            <option value="3" >Abhishek Chaturvedi</option>
+                                            
+                                        </select>
+                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                    </div>
+                                </form>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <a href="/admin/delete-lead/2" onclick="return confirm('Delete this lead record?')" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="py-3 px-4">
+                                <span class="font-extrabold text-navy-900 block">Disthi</span>
+                                <span class="text-[10px] text-slate-400">
+                                    Disthi (Enquiry) • 
+                                    <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">Website Form</span>
+                                </span>
+                                
+                                <div class="text-[10px] text-slate-500 mt-0.5">
+                                    <a href="mailto:bliss@gmail.com" class="text-brandBlue hover:underline">bliss@gmail.com</a>
+                                </div>
+                                
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="font-bold text-slate-800 flex items-center gap-1.5">
+                                    <span>8840311444</span>
+                                    
+                                    <a href="https://wa.me/8840311444" target="_blank" class="text-emerald-600 hover:text-emerald-700 text-sm" title="Chat on WhatsApp">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                    <a href="tel:8840311444" class="text-sky-600 hover:text-sky-700 text-xs" title="Call">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </a>
+                                    
+                                </div>
+                                <div class="text-[10px] text-slate-400">2026-10-27</div>
+                            </td>
+                            <td class="py-3 px-4 font-semibold text-itIndigo">
+                                <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
+                                    Android / iOS Mobile App
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 max-w-xs">
+                                <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
+                                    No details provided
+                                </p>
+                            </td>
+                            <td class="py-3 px-4">
+                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5">
+                                    <input type="hidden" name="lead_id" value="1">
+                                    <div class="flex items-center gap-1">
+                                        <select name="status" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white">
+                                            <option value="New" selected>🟢 New</option>
+                                            <option value="Discussion" >🟡 In Discussion</option>
+                                            <option value="Quotation" >🔵 Quotation Sent</option>
+                                            <option value="Won" >🏆 Won / Converted</option>
+                                            <option value="Lost" >❌ Lost</option>
+                                        </select>
+                                        <select name="assigned_team_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Team</option>
+                                            
+                                            <option value="2" >Amit Verma</option>
+                                            
+                                        </select>
+                                        <select name="assigned_partner_id" class="p-1 rounded border border-slate-300 text-[10px] bg-white">
+                                            <option value="">Assign Partner</option>
+                                            
+                                            <option value="3" >Abhishek Chaturvedi</option>
+                                            
+                                        </select>
+                                        <button type="submit" class="bg-navy-900 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-800" title="Save Status">Save</button>
+                                    </div>
+                                </form>
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <a href="/admin/delete-lead/1" onclick="return confirm('Delete this lead record?')" class="text-rose-500 hover:text-rose-700 text-xs p-1" title="Delete Lead">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 1: TEAM & PARTNERS MANAGEMENT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                <div>
+                    <h3 class="text-lg font-extrabold text-navy-900">👥 Team Members & Partners Directory</h3>
+                    <p class="text-xs text-slate-500">Manage internal engineers, strategists, and business partners</p>
+                </div>
+                <!-- Modal trigger form toggle -->
+                <button onclick="document.getElementById('userModal').classList.toggle('hidden')" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-plus"></i> Add Member / Partner
+                </button>
+            </div>
+
+            <!-- New User Form (Collapsible Modal style) -->
+            <div id="userModal" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 class="text-sm font-bold text-navy-900 mb-3">Register New Team Member or Partner</h4>
+                <form action="/admin/add-user" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <input type="text" name="name" required placeholder="Full Name" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="username" required placeholder="Username ID" class="p-2.5 rounded border border-slate-300">
+                    <input type="password" name="password" required placeholder="Password" class="p-2.5 rounded border border-slate-300">
+                    <input type="email" name="email" placeholder="Email Address" class="p-2.5 rounded border border-slate-300">
+                    <input type="tel" name="phone" placeholder="Phone Number" class="p-2.5 rounded border border-slate-300">
+                    <select name="role" required class="p-2.5 rounded border border-slate-300 font-bold">
+                        <option value="team">Team Member (Engineer/Staff)</option>
+                        <option value="partner">Business Partner</option>
+                        <option value="admin">Admin / Director</option>
+                    </select>
+                    <input type="text" name="designation" placeholder="Designation (e.g. Lead Engineer)" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="employee_id" placeholder="Employee / Partner ID (e.g. GS-ENG-102)" class="p-2.5 rounded border border-slate-300">
+                    <input type="date" name="joining_date" class="p-2.5 rounded border border-slate-300">
+                    <button type="submit" class="sm:col-span-3 bg-brandBlue text-white font-bold py-2 rounded">Save User & Generate Credentials</button>
+                </form>
+            </div>
+
+            <!-- User Directory Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">User</th>
+                            <th class="py-3 px-4">Role / Designation</th>
+                            <th class="py-3 px-4">ID Code</th>
+                            <th class="py-3 px-4">Contact</th>
+                            <th class="py-3 px-4">Digital ID Card</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 px-4 font-bold text-navy-900">Abhishek Chaturvedi</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold 
+                                     bg-blue-100 text-blue-800 ">
+                                    PARTNER
+                                </span>
+                                <span class="block text-[11px] text-slate-500 font-medium">Digital Business Strategist</span>
+                            </td>
+                            <td class="py-3 px-4 font-mono font-bold text-slate-600">GS-PTR-201</td>
+                            <td class="py-3 px-4">
+                                <div>+919104313824</div>
+                                <div class="text-[10px] text-slate-400">abhishek@globalshine.in</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <a href="id-card.html" target="_blank" class="text-brandBlue font-bold hover:underline flex items-center gap-1">
+                                    <i class="fa-solid fa-id-card text-xs"></i> View ID Card
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 px-4 font-bold text-navy-900">Amit Verma</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold 
+                                     bg-emerald-100 text-emerald-800
+                                    ">
+                                    TEAM
+                                </span>
+                                <span class="block text-[11px] text-slate-500 font-medium">Senior Lead Engineer</span>
+                            </td>
+                            <td class="py-3 px-4 font-mono font-bold text-slate-600">GS-ENG-101</td>
+                            <td class="py-3 px-4">
+                                <div>+919876543210</div>
+                                <div class="text-[10px] text-slate-400">amit.team@globalshine.in</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <a href="id-card.html" target="_blank" class="text-brandBlue font-bold hover:underline flex items-center gap-1">
+                                    <i class="fa-solid fa-id-card text-xs"></i> View ID Card
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 px-4 font-bold text-navy-900">Nishant Chaturvedi</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold 
+                                     bg-purple-100 text-purple-800
+                                    ">
+                                    ADMIN
+                                </span>
+                                <span class="block text-[11px] text-slate-500 font-medium">Director</span>
+                            </td>
+                            <td class="py-3 px-4 font-mono font-bold text-slate-600">GS-DIR-001</td>
+                            <td class="py-3 px-4">
+                                <div>+919005874417</div>
+                                <div class="text-[10px] text-slate-400">globalshinedigitals@gmail.com</div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <a href="id-card.html" target="_blank" class="text-brandBlue font-bold hover:underline flex items-center gap-1">
+                                    <i class="fa-solid fa-id-card text-xs"></i> View ID Card
+                                </a>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 2: CLIENT MANAGEMENT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                <div>
+                    <h3 class="text-lg font-extrabold text-navy-900">🧑‍💼 Client Directory & Financial Profiles</h3>
+                    <p class="text-xs text-slate-500">Manage client master data, contract values, received revenue & balance due</p>
+                </div>
+                <button onclick="document.getElementById('clientModal').classList.toggle('hidden')" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus"></i> Add Client
+                </button>
+            </div>
+
+            <div id="clientModal" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 class="text-sm font-bold text-navy-900 mb-3">Add New Client Profile</h4>
+                <form action="/admin/add-client" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <input type="text" name="company_name" required placeholder="Company / Organization Name" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="contact_person" required placeholder="Contact Person" class="p-2.5 rounded border border-slate-300">
+                    <input type="tel" name="mobile" required placeholder="Mobile Number" class="p-2.5 rounded border border-slate-300">
+                    <input type="email" name="email" placeholder="Email" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="gst_number" placeholder="GST / Business Reg No." class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="city" placeholder="City" class="p-2.5 rounded border border-slate-300">
+                    <input type="number" step="0.01" name="project_cost" placeholder="Total Project Cost (₹)" class="p-2.5 rounded border border-slate-300 font-bold">
+                    <input type="number" step="0.01" name="amount_received" placeholder="Amount Received (₹)" class="p-2.5 rounded border border-slate-300">
+                    <input type="text" name="address" placeholder="Address" class="p-2.5 rounded border border-slate-300 sm:col-span-3">
+                    <button type="submit" class="sm:col-span-3 bg-emerald-600 text-white font-bold py-2 rounded">Register Client Profile</button>
+                </form>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase border-y border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">Client / Company</th>
+                            <th class="py-3 px-4">Contact Person</th>
+                            <th class="py-3 px-4">Project Value</th>
+                            <th class="py-3 px-4">Received</th>
+                            <th class="py-3 px-4">Balance Due</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PROJECT WORKFLOWS & TASKS -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Project Pipelines -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h3 class="text-base font-extrabold text-navy-900">📊 Active Projects & Workflows</h3>
+                    <button onclick="document.getElementById('projModal').classList.toggle('hidden')" class="bg-brandBlue text-white text-xs font-bold px-3 py-1.5 rounded">New Project</button>
+                </div>
+
+                <div id="projModal" class="hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <form action="/admin/add-project" method="POST" class="space-y-2 text-xs">
+                        <input type="text" name="project_name" required placeholder="Project Title" class="w-full p-2 rounded border">
+                        <select name="service_category" class="w-full p-2 rounded border">
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile App (Android/iOS)">Mobile App (Android/iOS)</option>
+                            <option value="Hospital ERP">Hospital ERP</option>
+                            <option value="School ERP">School ERP</option>
+                            <option value="Billing / POS">Billing / POS</option>
+                        </select>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="number" step="0.01" name="project_value" placeholder="Contract Value (₹)" class="p-2 rounded border">
+                            <input type="number" step="0.01" name="advance_received" placeholder="Advance Paid (₹)" class="p-2 rounded border">
+                        </div>
+                        <input type="date" name="deadline" class="w-full p-2 rounded border">
+                        <button type="submit" class="w-full bg-navy-900 text-white font-bold py-2 rounded">Create Project Workflow</button>
+                    </form>
+                </div>
+
+                <div class="space-y-3">
+                    
+                </div>
+            </div>
+
+            <!-- Task Assignment -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h3 class="text-base font-extrabold text-navy-900">📌 Task Dispatch & Status</h3>
+                    <button onclick="document.getElementById('taskModal').classList.toggle('hidden')" class="bg-navy-900 text-white text-xs font-bold px-3 py-1.5 rounded">Assign Task</button>
+                </div>
+
+                <div id="taskModal" class="hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <form action="/admin/add-task" method="POST" class="space-y-2 text-xs">
+                        <input type="text" name="title" required placeholder="Task Description" class="w-full p-2 rounded border">
+                        <select name="assigned_to_id" class="w-full p-2 rounded border font-bold">
+                            
+                            <option value="3">Abhishek Chaturvedi (partner)</option>
+                            
+                            <option value="2">Amit Verma (team)</option>
+                            
+                            <option value="1">Nishant Chaturvedi (admin)</option>
+                            
+                        </select>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select name="priority" class="p-2 rounded border">
+                                <option value="Medium">Medium Priority</option>
+                                <option value="High">High Priority</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                            <input type="date" name="deadline" class="p-2 rounded border">
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-2 rounded">Assign Task</button>
+                    </form>
+                </div>
+
+                <div class="space-y-3">
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECTION 4: FINANCIAL & INCENTIVE MANAGEMENT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                <h3 class="text-base font-extrabold text-navy-900">💰 Partner & Team Incentives Ledger</h3>
+                <button onclick="document.getElementById('incModal').classList.toggle('hidden')" class="bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded">Log Incentive</button>
+            </div>
+
+            <div id="incModal" class="hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <form action="/admin/add-incentive" method="POST" class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+                    <select name="user_id" required class="p-2 rounded border font-bold">
+                        
+                        <option value="3">Abhishek Chaturvedi (partner)</option>
+                        
+                        <option value="2">Amit Verma (team)</option>
+                        
+                        <option value="1">Nishant Chaturvedi (admin)</option>
+                        
+                    </select>
+                    <select name="user_role" required class="p-2 rounded border">
+                        <option value="team">Team Incentive</option>
+                        <option value="partner">Partner Commission</option>
+                    </select>
+                    <input type="number" step="0.01" name="amount_earned" placeholder="Total Earned (₹)" class="p-2 rounded border">
+                    <input type="number" step="0.01" name="amount_paid" placeholder="Amount Paid (₹)" class="p-2 rounded border">
+                    <button type="submit" class="sm:col-span-4 bg-navy-900 text-white font-bold py-2 rounded">Record Incentive Ledger</button>
+                </form>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 font-bold border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Recipient</th>
+                            <th class="py-2.5 px-3">Role</th>
+                            <th class="py-2.5 px-3">Earned</th>
+                            <th class="py-2.5 px-3">Paid</th>
+                            <th class="py-2.5 px-3">Pending</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 5: DOCUMENT & FILE VAULT -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-base font-extrabold text-navy-900 border-b border-slate-100 pb-3">📁 Corporate Document & Material Vault</h3>
+            <form action="/upload-document" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <input type="text" name="title" required placeholder="Document / Proposal Title" class="p-2 rounded border">
+                <select name="category" class="p-2 rounded border">
+                    <option value="Proposal">Proposal / Quotation</option>
+                    <option value="Client Document">Client Document</option>
+                    <option value="Code Asset">Code Asset / Screenshot</option>
+                </select>
+                <input type="file" name="file" required class="p-1.5 rounded border bg-white">
+                <button type="submit" class="bg-brandBlue text-white font-bold py-2 rounded">Upload to Vault</button>
+            </form>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    </main>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine,%20I%20need%20assistance%20with%20custom%20software%20/%20IT%20solutions." target="_blank" class="fixed bottom-5 right-5 bg-emerald-600 hover:bg-emerald-700 text-white p-3.5 rounded-full shadow-xl z-50 flex items-center justify-center transition-all hover:scale-105 group" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-semibold pl-0 group-hover:pl-2">Connect IT Expert</span>
+    </a>
+
+    <!-- Compact IT Corporate Footer -->
+    <footer class="bg-slateDark text-slate-300 pt-12 pb-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Company Info & Logo -->
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2.5">
+                        <img src="./static/images/logo.jpg" alt="Global Shine Logo" class="h-8 w-auto rounded bg-white p-0.5">
+                        <span class="text-lg font-extrabold text-white">GLOBAL SHINE</span>
+                    </div>
+                    <p class="text-itIndigo font-semibold text-xs italic">“Your Vision..! Our Premium Digital Transformation..!!”</p>
+                    <p class="text-xs text-slate-400 leading-normal">
+                        Global Shine Digital Solutions Pvt. Ltd. is a premier IT & software engineering company developing custom enterprise web applications, mobile apps, ERPs, CRMs, and POS billing software.
+                    </p>
+                    <div class="text-xs text-slate-400 space-y-0.5">
+                        <p><strong class="text-white">Director:</strong> Nishant Chaturvedi</p>
+                        <p><strong class="text-white">Digital Strategist:</strong> Abhishek Chaturvedi</p>
+                    </div>
+                </div>
+
+                <!-- Verticals -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Our IT Divisions</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine IT Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Digital Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine App & Website Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Software Engineering</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Social Media Solutions</li>
+                    </ul>
+                </div>
+
+                <!-- Products -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Enterprise Software</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Custom ERP & CRM Software</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Hospital & Pharmacy Portals</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>School & Campus Management</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>POS & Billing Systems</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Android & iOS Mobile Apps</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>AI Automation & REST APIs</li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Registered Office</h4>
+                    <div class="text-xs text-slate-400 space-y-2">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-itIndigo mt-0.5 text-xs"></i>
+                            <span>116, Manas Vihar, Indira Nagar, Lucknow 226016, UP, India</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-emerald-400 text-xs"></i>
+                            <span>+91 9005874417</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-handshake text-sky-400 text-xs"></i>
+                            <span>+91 9104313824 / +91 9792009307</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-amber-400 text-xs"></i>
+                            <span>globalshinedigitals@gmail.com</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800 mt-8 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500 gap-2">
+                <p>&copy; 2026 Global Shine Digital Solutions Pvt. Ltd. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="/sitemap.xml" class="hover:text-slate-300">Sitemap</a>
+                    <a href="/robots.txt" class="hover:text-slate-300">Robots.txt</a>
+                    <a href="login.html" class="hover:text-slate-300">Employee/Partner Portal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Preloader script
+        document.addEventListener("DOMContentLoaded", function() {
+            var loader = document.getElementById("gs-page-loader");
+            var bar = document.getElementById("gs-loader-bar");
+            var percent = document.getElementById("gs-loader-percent");
+            var status = document.getElementById("gs-loader-status");
+
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.floor(Math.random() * 25) + 20;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    status.textContent = "CORE SYSTEM READY.";
+                    setTimeout(function() {
+                        loader.classList.add("loader-hidden");
+                    }, 350);
+                }
+                bar.style.width = progress + "%";
+                percent.textContent = progress + "%";
+            }, 60);
+        });
+
+        // Mobile drawer toggle
+        function toggleMobileMenu() {
+            var drawer = document.getElementById("mobileMenuDrawer");
+            var icon = document.getElementById("mobileMenuIcon");
+            drawer.classList.toggle("hidden");
+            if (drawer.classList.contains("hidden")) {
+                icon.className = "fa-solid fa-bars text-lg";
+            } else {
+                icon.className = "fa-solid fa-xmark text-lg";
+            }
+        }
+    </script>
+</body>
+</html>
+        <script>
+        document.querySelectorAll('form').forEach(function(f) {
+            f.addEventListener('submit', function(e) {
+                if (window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('netlify.app')) {
+                    e.preventDefault();
+                    alert('Action simulated successfully in demo mode!');
+                }
+            });
+        });
+        </script>
+        

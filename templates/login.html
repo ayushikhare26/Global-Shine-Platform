@@ -69,5 +69,28 @@ function fillAuth(u, p) {
     document.getElementById('username').value = u;
     document.getElementById('password').value = p;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            var u = (document.getElementById('username').value || '').trim();
+            var p = (document.getElementById('password').value || '').trim();
+            // Client-side authentication when hosted statically on GitHub Pages / Netlify or any static host
+            if (window.location.port !== '5000') {
+                e.preventDefault();
+                if (u === 'admin' && p === 'admin123') {
+                    window.location.href = 'admin.html';
+                } else if (u === 'team1' && p === 'team123') {
+                    window.location.href = 'team.html';
+                } else if (u === 'partner1' && p === 'partner123') {
+                    window.location.href = 'partner.html';
+                } else {
+                    alert('Invalid credentials!\nPlease use:\nAdmin: admin / admin123\nTeam: team1 / team123\nPartner: partner1 / partner123');
+                }
+            }
+        });
+    }
+});
 </script>
 {% endblock %}

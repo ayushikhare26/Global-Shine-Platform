@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Partner Executive Portal | Global Shine</title>
+
+    <!-- Meta Description for Technical SEO -->
+    <meta name="description" content="Global Shine Digital Solutions Pvt. Ltd. - Enterprise Software Engineering, Custom ERP/CRM, Web & Mobile App Development (Android & iOS). Lucknow, India.">
+    <meta name="keywords" content="Global Shine, Global Shine IT Solutions, Software Development Lucknow, Custom ERP, CRM Software, Web Development India, React Native App Development, Hospital Management Software">
+    <meta name="author" content="Global Shine Digital Solutions Pvt. Ltd.">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Global Shine | Enterprise Software & IT Solutions">
+    <meta property="og:description" content="Your Vision..! Our Premium Digital Transformation..!! World-class custom software, web & mobile app engineering.">
+    <meta property="og:image" content="./static/images/logo.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="./static/images/logo.jpg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'xs': '375px',
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1280px',
+                    '2xl': '1536px',
+                },
+                extend: {
+                    colors: {
+                        slateDark: '#0f172a',
+                        slateNavy: '#1e293b',
+                        itIndigo: '#4f46e5',
+                        itBlue: '#2563eb',
+                        itCyan: '#0284c7',
+                        lightBg: '#f8fafc'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-gentle': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* Subtle Grid Pattern */
+        .it-grid-pattern {
+            background-image: radial-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .gs-watermark-overlay {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            opacity: 0.06;
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            pointer-events: none;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+        
+        /* PRELOADER STYLES */
+        #gs-page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+        }
+        #gs-page-loader.loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .logo-pulse-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-pulse-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #4f46e5;
+            border-right-color: #0284c7;
+            animation: gs-spin 1s linear infinite;
+        }
+        .logo-pulse-ring-outer {
+            position: absolute;
+            inset: -18px;
+            border-radius: 50%;
+            border: 1px dashed rgba(15, 23, 42, 0.15);
+            animation: gs-spin-reverse 4s linear infinite;
+        }
+        @keyframes gs-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes gs-spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Subtle Hover Cards */
+        .it-card-hover {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .it-card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.08);
+            border-color: #cbd5e1;
+        }
+    </style>
+    
+</head>
+<body class="it-grid-pattern min-h-screen flex flex-col antialiased">
+
+    <!-- ELEGANT IT PRELOADER -->
+    <div id="gs-page-loader">
+        <div class="logo-pulse-container mb-5">
+            <div class="logo-pulse-ring-outer"></div>
+            <div class="logo-pulse-ring"></div>
+            <img src="./static/images/logo.jpg" alt="Global Shine Logo" class="w-20 h-20 object-contain rounded-full shadow border border-slate-100 bg-white p-1">
+        </div>
+
+        <div class="text-center space-y-2 max-w-xs px-4">
+            <div class="flex items-center justify-center space-x-1.5">
+                <span class="text-lg font-extrabold tracking-tight text-slateDark">GLOBAL</span>
+                <span class="text-lg font-extrabold tracking-tight text-itIndigo">SHINE</span>
+            </div>
+            <p class="text-[10px] font-mono font-bold text-slate-400 tracking-wider uppercase" id="gs-loader-status">
+                INITIALIZING ENTERPRISE ENGINE...
+            </p>
+
+            <div class="w-56 h-1 bg-slate-100 rounded-full overflow-hidden mx-auto border border-slate-200">
+                <div id="gs-loader-bar" class="h-full bg-gradient-to-r from-itIndigo to-itCyan w-0 transition-all duration-300"></div>
+            </div>
+
+            <p class="text-[10px] font-mono text-itIndigo font-bold" id="gs-loader-percent">0%</p>
+        </div>
+    </div>
+
+    <!-- Top Contact & Announcement Bar -->
+    <div class="bg-slateDark text-slate-300 text-xs py-1.5 px-3 sm:px-6 shadow-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px]">
+                <span class="flex items-center space-x-1.5">
+                    <i class="fa-solid fa-headset text-itCyan"></i>
+                    <span>Customer Care: <a href="tel:+919005874417" class="hover:underline font-bold text-white">+91 9005874417</a></span>
+                </span>
+                <span class="hidden sm:flex items-center space-x-1.5">
+                    <i class="fa-solid fa-handshake text-emerald-400"></i>
+                    <span>Business: <a href="tel:+919104313824" class="hover:underline">+91 9104313824</a> / <a href="tel:+919792009307" class="hover:underline">+91 9792009307</a></span>
+                </span>
+                <span class="hidden lg:flex items-center space-x-1.5">
+                    <i class="fa-envelope text-sky-400"></i>
+                    <span>globalshinedigitals@gmail.com</span>
+                </span>
+            </div>
+            <div class="flex items-center space-x-3 text-[11px]">
+                <span class="hidden md:inline bg-itIndigo/20 text-indigo-300 px-2 py-0.5 rounded font-medium border border-itIndigo/30">
+                    Enterprise IT & Software Engineering
+                </span>
+                
+                    <a href="login.html" class="text-rose-300 hover:text-white font-medium flex items-center gap-1">
+                        <i class="fa-solid fa-right-from-bracket text-[10px]"></i> Logout
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar (Fully Device Friendly Responsive) -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Logo Brand Title -->
+                <a href="index.html" class="flex items-center space-x-2.5 group">
+                    <img src="./static/images/logo.jpg" alt="Global Shine Logo" class="h-10 w-auto object-contain rounded-md border border-slate-200 group-hover:scale-105 transition-transform">
+                    <div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-lg font-extrabold tracking-tight text-slateDark">GLOBAL</span>
+                            <span class="text-lg font-extrabold tracking-tight text-itIndigo">SHINE</span>
+                        </div>
+                        <p class="text-[9px] font-semibold text-slate-500 tracking-wide uppercase leading-none">IT & Enterprise Solutions</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex items-center space-x-7 text-xs font-semibold text-slate-700">
+                    <a href="index.html" class="hover:text-itIndigo transition-colors py-1">Home</a>
+                    <a href="index.html#positioning" class="hover:text-itIndigo transition-colors py-1">Company</a>
+                    <a href="index.html#services" class="hover:text-itIndigo transition-colors py-1">Services</a>
+                    <a href="index.html#tech-stack" class="hover:text-itIndigo transition-colors py-1">Tech Stack</a>
+                    <a href="index.html#client-appreciation" class="hover:text-itIndigo transition-colors text-itIndigo font-bold py-1">Client Appreciation</a>
+                    <a href="index.html#contact" class="hover:text-itIndigo transition-colors py-1">Contact</a>
+                </div>
+
+                <!-- Action CTA & Mobile Menu Toggle Button -->
+                <div class="flex items-center space-x-2.5">
+                    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine%20Team,%20I%20want%20to%20discuss%20an%20IT%20/%20Software%20project." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3 py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span class="hidden sm:inline">WhatsApp IT Desk</span>
+                    </a>
+                    
+                    
+                        
+                            <a href="partner.html" class="hidden sm:inline-block bg-slateDark hover:bg-slateNavy text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm">Partner Portal</a>
+                        
+                    
+
+                    <!-- Mobile Hamburger Button -->
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden text-slateDark p-2 rounded-lg hover:bg-slate-100 focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-lg" id="mobileMenuIcon"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation (iPhone, Android, Foldables friendly) -->
+        <div id="mobileMenuDrawer" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-4 space-y-2 shadow-lg">
+            <a href="index.html" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Home</a>
+            <a href="index.html#positioning" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Company Positioning</a>
+            <a href="index.html#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">IT Services & Solutions</a>
+            <a href="index.html#tech-stack" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Tech Stack</a>
+            <a href="index.html#client-appreciation" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-itIndigo bg-indigo-50">Client Appreciation (10 Indian Clients)</a>
+            <a href="index.html#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-800 hover:bg-slate-50">Contact Us</a>
+            
+            <div class="pt-2 border-t border-slate-100 flex flex-col space-y-2">
+                
+                    <a href="admin.html" class="text-center bg-slateDark text-white text-xs font-bold py-2 rounded-lg">Go to Dashboard</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Notifications -->
+    <div class="max-w-7xl mx-auto px-4 mt-3 w-full">
+        
+            
+                
+                    <div class="p-3 mb-2 rounded-lg border text-xs font-medium flex justify-between items-center shadow-sm 
+                         bg-sky-50 text-sky-800 border-sky-200 ">
+                        <span>You have been logged out safely.</span>
+                        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 font-bold ml-4">&times;</button>
+                    </div>
+                
+                    <div class="p-3 mb-2 rounded-lg border text-xs font-medium flex justify-between items-center shadow-sm 
+                         bg-emerald-50 text-emerald-800 border-emerald-200
+                        ">
+                        <span>Welcome back, Abhishek Chaturvedi!</span>
+                        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 font-bold ml-4">&times;</button>
+                    </div>
+                
+            
+        
+    </div>
+
+    <!-- Main Viewport -->
+    <main class="flex-grow">
+        
+<div class="py-8 bg-slate-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Partner Banner -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-full bg-navy-900 text-brandBlue flex items-center justify-center font-bold text-xl shadow">
+                    AB
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-blue-100 text-brandBlue text-xs font-bold px-2 py-0.5 rounded">Business Partner</span>
+                        <span class="text-xs text-slate-400 font-mono">GS-PTR-201</span>
+                    </div>
+                    <h1 class="text-2xl font-extrabold text-navy-900 mt-1">Abhishek Chaturvedi</h1>
+                    <p class="text-xs text-slate-500">Digital Business Strategist</p>
+                </div>
+            </div>
+            <div>
+                <a href="id-card.html" target="_blank" class="bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2">
+                    <i class="fa-solid fa-id-card text-emerald-400"></i>
+                    <span>View Partner Digital ID Card</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Financial Summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Assigned Clients</p>
+                <p class="text-2xl font-extrabold text-navy-900 mt-1">0</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Commission Earned</p>
+                <p class="text-2xl font-extrabold text-emerald-600 mt-1">
+                    ₹0.00
+                </p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Commission Pending</p>
+                <p class="text-2xl font-extrabold text-rose-600 mt-1">
+                    ₹0.00
+                </p>
+            </div>
+        </div>
+
+        <!-- My Clients -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">🧑‍💼 Assigned Client Portfolio</h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 font-bold border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Company</th>
+                            <th class="py-2.5 px-3">Contact</th>
+                            <th class="py-2.5 px-3">Project Value</th>
+                            <th class="py-2.5 px-3">Received</th>
+                            <th class="py-2.5 px-3">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+                        <tr>
+                            <td colspan="5" class="py-3 text-center text-slate-400 italic">No assigned clients registered yet.</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Assigned Leads & Business Inquiries -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📥 My Assigned Leads & Business Inquiries</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-50 font-bold border-y border-slate-200">
+                        <tr>
+                            <th class="py-2.5 px-3">Lead / Company</th>
+                            <th class="py-2.5 px-3">Contact</th>
+                            <th class="py-2.5 px-3">Service Required</th>
+                            <th class="py-2.5 px-3">Requirements</th>
+                            <th class="py-2.5 px-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+                        <tr>
+                            <td colspan="5" class="py-4 text-center text-slate-400 italic">No business leads currently assigned to you.</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Shared Document Repository -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+            <h3 class="text-lg font-extrabold text-navy-900 border-b border-slate-100 pb-3">📁 Proposals & Sales Assets</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    </main>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/919005874417?text=Hello%20Global%20Shine,%20I%20need%20assistance%20with%20custom%20software%20/%20IT%20solutions." target="_blank" class="fixed bottom-5 right-5 bg-emerald-600 hover:bg-emerald-700 text-white p-3.5 rounded-full shadow-xl z-50 flex items-center justify-center transition-all hover:scale-105 group" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-semibold pl-0 group-hover:pl-2">Connect IT Expert</span>
+    </a>
+
+    <!-- Compact IT Corporate Footer -->
+    <footer class="bg-slateDark text-slate-300 pt-12 pb-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Company Info & Logo -->
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2.5">
+                        <img src="./static/images/logo.jpg" alt="Global Shine Logo" class="h-8 w-auto rounded bg-white p-0.5">
+                        <span class="text-lg font-extrabold text-white">GLOBAL SHINE</span>
+                    </div>
+                    <p class="text-itIndigo font-semibold text-xs italic">“Your Vision..! Our Premium Digital Transformation..!!”</p>
+                    <p class="text-xs text-slate-400 leading-normal">
+                        Global Shine Digital Solutions Pvt. Ltd. is a premier IT & software engineering company developing custom enterprise web applications, mobile apps, ERPs, CRMs, and POS billing software.
+                    </p>
+                    <div class="text-xs text-slate-400 space-y-0.5">
+                        <p><strong class="text-white">Director:</strong> Nishant Chaturvedi</p>
+                        <p><strong class="text-white">Digital Strategist:</strong> Abhishek Chaturvedi</p>
+                    </div>
+                </div>
+
+                <!-- Verticals -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Our IT Divisions</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine IT Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Digital Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine App & Website Solutions</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Software Engineering</li>
+                        <li><i class="fa-solid fa-chevron-right text-itIndigo text-[9px] mr-1.5"></i>Global Shine Social Media Solutions</li>
+                    </ul>
+                </div>
+
+                <!-- Products -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Enterprise Software</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Custom ERP & CRM Software</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Hospital & Pharmacy Portals</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>School & Campus Management</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>POS & Billing Systems</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Android & iOS Mobile Apps</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>AI Automation & REST APIs</li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3 border-b border-slate-700 pb-1.5">Registered Office</h4>
+                    <div class="text-xs text-slate-400 space-y-2">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-itIndigo mt-0.5 text-xs"></i>
+                            <span>116, Manas Vihar, Indira Nagar, Lucknow 226016, UP, India</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-emerald-400 text-xs"></i>
+                            <span>+91 9005874417</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-handshake text-sky-400 text-xs"></i>
+                            <span>+91 9104313824 / +91 9792009307</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-amber-400 text-xs"></i>
+                            <span>globalshinedigitals@gmail.com</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800 mt-8 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500 gap-2">
+                <p>&copy; 2026 Global Shine Digital Solutions Pvt. Ltd. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="/sitemap.xml" class="hover:text-slate-300">Sitemap</a>
+                    <a href="/robots.txt" class="hover:text-slate-300">Robots.txt</a>
+                    <a href="login.html" class="hover:text-slate-300">Employee/Partner Portal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Preloader script
+        document.addEventListener("DOMContentLoaded", function() {
+            var loader = document.getElementById("gs-page-loader");
+            var bar = document.getElementById("gs-loader-bar");
+            var percent = document.getElementById("gs-loader-percent");
+            var status = document.getElementById("gs-loader-status");
+
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.floor(Math.random() * 25) + 20;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    status.textContent = "CORE SYSTEM READY.";
+                    setTimeout(function() {
+                        loader.classList.add("loader-hidden");
+                    }, 350);
+                }
+                bar.style.width = progress + "%";
+                percent.textContent = progress + "%";
+            }, 60);
+        });
+
+        // Mobile drawer toggle
+        function toggleMobileMenu() {
+            var drawer = document.getElementById("mobileMenuDrawer");
+            var icon = document.getElementById("mobileMenuIcon");
+            drawer.classList.toggle("hidden");
+            if (drawer.classList.contains("hidden")) {
+                icon.className = "fa-solid fa-bars text-lg";
+            } else {
+                icon.className = "fa-solid fa-xmark text-lg";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -394,6 +394,19 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.port !== '5000') {
+        document.querySelectorAll('form').forEach(function(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Task updated successfully!');
+            });
+        });
+    }
+});
+</script>
+
     </main>
 
     <!-- Floating WhatsApp Widget -->

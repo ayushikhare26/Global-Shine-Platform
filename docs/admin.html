@@ -453,7 +453,7 @@
                                 </p>
                             </td>
                             <td class="py-3 px-4">
-                                <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('3', this); return false;" class="flex flex-col gap-1.5">
+                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5" onsubmit="event.preventDefault(); saveLeadStatus('3', this); return false;">
                                     <input type="hidden" name="lead_id" value="3">
                                     <div class="flex items-center gap-1">
                                         <select name="status" onchange="saveLeadStatus('3', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
@@ -524,7 +524,7 @@
                                 </p>
                             </td>
                             <td class="py-3 px-4">
-                                <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('2', this); return false;" class="flex flex-col gap-1.5">
+                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5" onsubmit="event.preventDefault(); saveLeadStatus('2', this); return false;">
                                     <input type="hidden" name="lead_id" value="2">
                                     <div class="flex items-center gap-1">
                                         <select name="status" onchange="saveLeadStatus('2', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
@@ -595,7 +595,7 @@
                                 </p>
                             </td>
                             <td class="py-3 px-4">
-                                <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('1', this); return false;" class="flex flex-col gap-1.5">
+                                <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5" onsubmit="event.preventDefault(); saveLeadStatus('1', this); return false;">
                                     <input type="hidden" name="lead_id" value="1">
                                     <div class="flex items-center gap-1">
                                         <select name="status" onchange="saveLeadStatus('1', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
@@ -983,8 +983,8 @@ function deleteLeadRow(btn, url) {
         if (leadId) {
             try {
                 var deleted = JSON.parse(localStorage.getItem('gs_deleted_leads') || '[]');
-                if (!deleted.includes(leadId)) {
-                    deleted.push(leadId);
+                if (!deleted.includes(String(leadId))) {
+                    deleted.push(String(leadId));
                     localStorage.setItem('gs_deleted_leads', JSON.stringify(deleted));
                 }
                 var customLeads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
@@ -1030,13 +1030,17 @@ function saveLeadStatus(leadId, form) {
             localStorage.setItem('gs_custom_leads', JSON.stringify(customLeads));
         } else {
             var overrides = JSON.parse(localStorage.getItem('gs_lead_overrides') || '{}');
-            overrides[leadId] = { status: status, assigned_team_id: teamId, assigned_partner_id: partnerId };
+            overrides[leadId] = {
+                status: status,
+                assigned_team_id: teamId,
+                assigned_partner_id: partnerId
+            };
             localStorage.setItem('gs_lead_overrides', JSON.stringify(overrides));
         }
+        showToast('Lead status & assignment saved!');
     } catch(err) {
         console.error(err);
     }
-    showToast('Lead status & assignments updated!');
 }
 
 function escapeHtml(text) {
@@ -1054,23 +1058,26 @@ function renderCustomLeads() {
         var emptyRow = tbody.querySelector('td[colspan="6"]');
         if (emptyRow) emptyRow.closest('tr').remove();
 
+        // Loop through each custom lead and prepend if not already displayed
         customLeads.slice().reverse().forEach(function(l) {
             if (deleted.includes(String(l.id))) return;
             if (document.querySelector('button[data-lead-id="' + l.id + '"]')) return;
 
             var tr = document.createElement('tr');
-            tr.className = 'hover:bg-slate-50/80 transition-colors';
+            tr.className = 'hover:bg-slate-50/80 transition-colors bg-blue-50/30 border-l-4 border-l-itIndigo';
             var safeMobile = (l.mobile || '').replace(/[^0-9]/g, '');
-            var companyDisplay = l.company ? escapeHtml(l.company) + ' • ' : (escapeHtml(l.lead_name) + ' (Enquiry) • ');
             var curStatus = l.status || 'New';
             var assignedTeam = l.assigned_team_id || '';
             var assignedPartner = l.assigned_partner_id || '';
 
             tr.innerHTML = `
                 <td class="py-3 px-4">
-                    <span class="font-extrabold text-navy-900 block">${escapeHtml(l.lead_name)}</span>
+                    <div class="flex items-center gap-1.5">
+                        <span class="bg-itIndigo text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded">NEW</span>
+                        <span class="font-extrabold text-navy-900">${escapeHtml(l.lead_name)}</span>
+                    </div>
                     <span class="text-[10px] text-slate-400">
-                        ${companyDisplay}
+                        ${l.company ? escapeHtml(l.company) + ' • ' : ''}
                         <span class="bg-slate-100 px-1.5 py-0.5 rounded font-mono">${escapeHtml(l.lead_source || 'Website Form')}</span>
                     </span>
                     ${l.email ? `<div class="text-[10px] text-slate-500 mt-0.5"><a href="mailto:${escapeHtml(l.email)}" class="text-brandBlue hover:underline">${escapeHtml(l.email)}</a></div>` : ''}
@@ -1086,7 +1093,7 @@ function renderCustomLeads() {
                             <i class="fa-solid fa-phone"></i>
                         </a>` : ''}
                     </div>
-                    <div class="text-[10px] text-slate-400">${escapeHtml(l.created_at || 'Recent')}</div>
+                    <div class="text-[10px] text-slate-400">${escapeHtml(l.created_at || 'Just Now')}</div>
                 </td>
                 <td class="py-3 px-4 font-semibold text-itIndigo">
                     <span class="bg-indigo-50 border border-indigo-100 px-2 py-1 rounded inline-block text-[11px]">
@@ -1094,12 +1101,12 @@ function renderCustomLeads() {
                     </span>
                 </td>
                 <td class="py-3 px-4 max-w-xs">
-                    <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed font-medium">
-                        ${escapeHtml(l.requirement || l.notes || 'No details provided')}
+                    <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                        ${escapeHtml(l.requirement || 'No details provided')}
                     </p>
                 </td>
                 <td class="py-3 px-4">
-                    <form action="/admin/update-lead" method="POST" onsubmit="event.preventDefault(); saveLeadStatus('${l.id}', this); return false;" class="flex flex-col gap-1.5">
+                    <form action="/admin/update-lead" method="POST" class="flex flex-col gap-1.5" onsubmit="event.preventDefault(); saveLeadStatus('${l.id}', this); return false;">
                         <input type="hidden" name="lead_id" value="${l.id}">
                         <div class="flex items-center gap-1">
                             <select name="status" onchange="saveLeadStatus('${l.id}', this.form)" class="p-1 rounded border border-slate-300 text-[10px] font-bold bg-white cursor-pointer hover:border-slate-400">
@@ -1173,6 +1180,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch(err) {}
 
+        // Handle Add Lead Modal Form
         var addLeadForm = document.querySelector('form[action*="add-lead"]');
         if (addLeadForm) {
             addLeadForm.addEventListener('submit', function(e) {

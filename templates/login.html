@@ -1,61 +1,148 @@
 {% extends "base.html" %}
 
-{% block title %}Portal Sign In | Global Shine{% endblock %}
+{% block title %}Portal Sign In & Register | Global Shine{% endblock %}
 
 {% block content %}
-<section class="py-12 bg-slate-50 min-h-[70vh] flex items-center justify-center">
+<section class="py-12 bg-slate-50 min-h-[75vh] flex items-center justify-center">
     <div class="max-w-md w-full mx-auto px-4">
-        
+
+        <!-- Optional Informational Notice -->
+        <div class="mb-4 bg-indigo-50/80 border border-indigo-100 rounded-xl p-3.5 flex items-start gap-3 shadow-xs">
+            <div class="text-itIndigo text-sm mt-0.5"><i class="fa-solid fa-circle-info"></i></div>
+            <div class="text-xs text-slate-600 leading-relaxed">
+                <span class="font-bold text-navy-900">Visiting or Enquiring?</span> Login is strictly optional. You can explore our IT services and send project enquiries freely without logging in.
+            </div>
+        </div>
+
         <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xl space-y-5">
-            
+
+            <!-- Card Header -->
             <div class="text-center space-y-1.5">
                 <div class="w-12 h-12 rounded-xl bg-slateDark text-itIndigo flex items-center justify-center text-xl mx-auto shadow">
                     <i class="fa-solid fa-user-shield"></i>
                 </div>
-                <h2 class="text-xl font-extrabold text-slateDark">Portal Sign In</h2>
-                <p class="text-xs text-slate-500">Access Admin, Team, Partner, or Client Dashboard</p>
+                <h2 id="portalHeading" class="text-xl font-extrabold text-slateDark">Portal Access</h2>
+                <p class="text-xs text-slate-500">Sign in to your portal or create a new account</p>
             </div>
 
-            <form action="{{ url_for('login') }}" method="POST" class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Username / ID *</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                            <i class="fa-solid fa-user"></i>
-                        </span>
-                        <input type="text" id="username" name="username" required placeholder="Enter username" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Password *</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                            <i class="fa-solid fa-lock"></i>
-                        </span>
-                        <input type="password" id="password" name="password" required placeholder="Enter password" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-slateDark hover:bg-slateNavy text-white font-bold text-xs py-2.5 rounded-lg shadow transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    <span>Secure Sign In</span>
+            <!-- Tab Switcher -->
+            <div class="flex rounded-xl bg-slate-100 p-1 text-xs">
+                <button type="button" id="tabSignInBtn" onclick="switchAuthTab('signin')" class="flex-1 py-2 rounded-lg bg-white text-navy-900 font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-right-to-bracket text-itIndigo"></i> Sign In
                 </button>
-            </form>
+                <button type="button" id="tabRegisterBtn" onclick="switchAuthTab('register')" class="flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-800 font-bold transition-all flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-user-plus text-emerald-600"></i> New User? Register
+                </button>
+            </div>
 
-            <!-- Quick Auto-Fill Credentials -->
-            <div class="pt-3 border-t border-slate-100 space-y-2">
-                <p class="text-[10px] font-bold text-slate-400 uppercase text-center">Quick Demo Credentials</p>
-                <div class="grid grid-cols-3 gap-2 text-[10px]">
-                    <button onclick="fillAuth('admin', 'admin123')" class="bg-indigo-50 hover:bg-indigo-100 text-itIndigo font-bold py-1.5 px-2 rounded border border-indigo-200">
-                        Admin Demo
+            <!-- 1. SIGN IN VIEW -->
+            <div id="signInView" class="space-y-4">
+                <form id="signInForm" action="{{ url_for('login') }}" method="POST" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Username / ID *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            <input type="text" id="username" name="username" required placeholder="Enter username (e.g. admin)" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Password *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input type="password" id="password" name="password" required placeholder="Enter password" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-slateDark hover:bg-slateNavy text-white font-bold text-xs py-2.5 rounded-lg shadow transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Secure Sign In</span>
                     </button>
-                    <button onclick="fillAuth('team1', 'team123')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-1.5 px-2 rounded border border-emerald-200">
-                        Team Demo
+                </form>
+
+                <!-- Quick Auto-Fill Credentials for Demonstration -->
+                <div class="pt-3 border-t border-slate-100 space-y-2">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase text-center">Quick Demo Credentials</p>
+                    <div class="grid grid-cols-3 gap-2 text-[10px]">
+                        <button type="button" onclick="fillAuth('admin', 'admin123')" class="bg-indigo-50 hover:bg-indigo-100 text-itIndigo font-bold py-1.5 px-2 rounded border border-indigo-200">
+                            Admin Demo
+                        </button>
+                        <button type="button" onclick="fillAuth('team1', 'team123')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-1.5 px-2 rounded border border-emerald-200">
+                            Team Demo
+                        </button>
+                        <button type="button" onclick="fillAuth('partner1', 'partner123')" class="bg-blue-50 hover:bg-blue-100 text-itBlue font-bold py-1.5 px-2 rounded border border-blue-200">
+                            Partner Demo
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <p class="text-xs text-slate-500">
+                        Don't have an account? 
+                        <button type="button" onclick="switchAuthTab('register')" class="text-itIndigo font-bold hover:underline">Register here</button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. REGISTER VIEW (Optional New User Registration) -->
+            <div id="registerView" class="hidden space-y-4">
+                <form id="registerForm" action="{{ url_for('register') }}" method="POST" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <i class="fa-solid fa-id-badge"></i>
+                            </span>
+                            <input type="text" id="reg_name" name="name" required placeholder="Your Full Name" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Mobile / WhatsApp *</label>
+                            <input type="tel" id="reg_phone" name="phone" required placeholder="+91 9005874417" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Email Address</label>
+                            <input type="email" id="reg_email" name="email" placeholder="name@company.com" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">I am registering as *</label>
+                        <select id="reg_role" name="role" class="w-full p-2 rounded-lg border border-slate-300 bg-white font-semibold">
+                            <option value="client">Client / Business Customer</option>
+                            <option value="partner">Referral / Channel Partner</option>
+                            <option value="team">Team Member / Candidate</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Choose Username *</label>
+                            <input type="text" id="reg_username" name="username" required placeholder="e.g. rahul24" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Create Password *</label>
+                            <input type="password" id="reg_password" name="password" required placeholder="Min 6 characters" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-lg shadow transition-all flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-user-check"></i>
+                        <span>Create Account & Sign In</span>
                     </button>
-                    <button onclick="fillAuth('partner1', 'partner123')" class="bg-blue-50 hover:bg-blue-100 text-itBlue font-bold py-1.5 px-2 rounded border border-blue-200">
-                        Partner Demo
-                    </button>
+                </form>
+
+                <div class="text-center pt-2">
+                    <p class="text-xs text-slate-500">
+                        Already have an account? 
+                        <button type="button" onclick="switchAuthTab('signin')" class="text-itIndigo font-bold hover:underline">Sign In here</button>
+                    </p>
                 </div>
             </div>
 
@@ -70,23 +157,136 @@ function fillAuth(u, p) {
     document.getElementById('password').value = p;
 }
 
+function switchAuthTab(tab) {
+    var signInView = document.getElementById('signInView');
+    var registerView = document.getElementById('registerView');
+    var tabSignInBtn = document.getElementById('tabSignInBtn');
+    var tabRegisterBtn = document.getElementById('tabRegisterBtn');
+
+    if (tab === 'register') {
+        signInView.classList.add('hidden');
+        registerView.classList.remove('hidden');
+        tabRegisterBtn.className = "flex-1 py-2 rounded-lg bg-white text-navy-900 font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5";
+        tabSignInBtn.className = "flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-800 font-bold transition-all flex items-center justify-center gap-1.5";
+    } else {
+        registerView.classList.add('hidden');
+        signInView.classList.remove('hidden');
+        tabSignInBtn.className = "flex-1 py-2 rounded-lg bg-white text-navy-900 font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5";
+        tabRegisterBtn.className = "flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-800 font-bold transition-all flex items-center justify-center gap-1.5";
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
+    var signInForm = document.getElementById('signInForm');
+    if (signInForm) {
+        signInForm.addEventListener('submit', function(e) {
             var u = (document.getElementById('username').value || '').trim();
             var p = (document.getElementById('password').value || '').trim();
-            // Client-side authentication when hosted statically on GitHub Pages / Netlify or any static host
+
             if (window.location.port !== '5000') {
                 e.preventDefault();
+                // 1. Check default demo accounts
                 if (u === 'admin' && p === 'admin123') {
+                    localStorage.setItem('gs_current_user', JSON.stringify({ name: 'Nishant Chaturvedi', username: 'admin', role: 'admin' }));
                     window.location.href = 'admin.html';
+                    return;
                 } else if (u === 'team1' && p === 'team123') {
+                    localStorage.setItem('gs_current_user', JSON.stringify({ name: 'Amit Verma', username: 'team1', role: 'team' }));
                     window.location.href = 'team.html';
+                    return;
                 } else if (u === 'partner1' && p === 'partner123') {
+                    localStorage.setItem('gs_current_user', JSON.stringify({ name: 'Abhishek Chaturvedi', username: 'partner1', role: 'partner' }));
                     window.location.href = 'partner.html';
+                    return;
+                }
+
+                // 2. Check self-registered users in localStorage
+                var registeredUsers = JSON.parse(localStorage.getItem('gs_registered_users') || '[]');
+                var foundUser = registeredUsers.find(function(user) {
+                    return user.username.toLowerCase() === u.toLowerCase() && user.password === p;
+                });
+
+                if (foundUser) {
+                    localStorage.setItem('gs_current_user', JSON.stringify({ name: foundUser.name, username: foundUser.username, role: foundUser.role }));
+                    alert('Welcome back, ' + foundUser.name + '!\nRedirecting to your dashboard...');
+                    if (foundUser.role === 'partner') {
+                        window.location.href = 'partner.html';
+                    } else if (foundUser.role === 'team') {
+                        window.location.href = 'team.html';
+                    } else {
+                        window.location.href = 'admin.html';
+                    }
                 } else {
-                    alert('Invalid credentials!\nPlease use:\nAdmin: admin / admin123\nTeam: team1 / team123\nPartner: partner1 / partner123');
+                    alert('Invalid Username or Password!\n\nIf you are a new user, click "New User? Register" tab above to create an account in 10 seconds.');
+                }
+            }
+        });
+    }
+
+    var registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            var name = (document.getElementById('reg_name').value || '').trim();
+            var phone = (document.getElementById('reg_phone').value || '').trim();
+            var email = (document.getElementById('reg_email').value || '').trim();
+            var role = document.getElementById('reg_role').value || 'client';
+            var username = (document.getElementById('reg_username').value || '').trim().toLowerCase();
+            var password = (document.getElementById('reg_password').value || '').trim();
+
+            if (window.location.port !== '5000') {
+                e.preventDefault();
+                if (!name || !phone || !username || !password) {
+                    alert('Please enter Name, Mobile, Username, and Password.');
+                    return;
+                }
+
+                var registeredUsers = JSON.parse(localStorage.getItem('gs_registered_users') || '[]');
+                var exists = registeredUsers.some(function(u) { return u.username.toLowerCase() === username; });
+                if (exists || username === 'admin' || username === 'team1' || username === 'partner1') {
+                    alert('Username "' + username + '" is already taken. Please choose another username.');
+                    return;
+                }
+
+                var newUser = {
+                    id: 'user_' + Date.now(),
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    role: role,
+                    username: username,
+                    password: password,
+                    created_at: new Date().toISOString().slice(0, 10)
+                };
+                registeredUsers.push(newUser);
+                localStorage.setItem('gs_registered_users', JSON.stringify(registeredUsers));
+
+                // Add to Admin CRM Leads automatically
+                try {
+                    var leads = JSON.parse(localStorage.getItem('gs_custom_leads') || '[]');
+                    leads.unshift({
+                        id: 'lead_' + Date.now(),
+                        lead_name: name,
+                        company: role === 'partner' ? 'Partner Signup' : (role === 'team' ? 'Team Member Signup' : 'Client Registration'),
+                        mobile: phone,
+                        email: email,
+                        service_required: 'Portal Registration (' + role.toUpperCase() + ')',
+                        requirement: 'Self-registered user @' + username + ' created an account on the portal.',
+                        lead_source: 'Portal Signup',
+                        status: 'New',
+                        created_at: new Date().toISOString().slice(0, 10)
+                    });
+                    localStorage.setItem('gs_custom_leads', JSON.stringify(leads));
+                } catch(err) {}
+
+                alert('Account created successfully for ' + name + '!\nYou are now logged in.');
+                localStorage.setItem('gs_current_user', JSON.stringify({ name: name, username: username, role: role }));
+
+                if (role === 'partner') {
+                    window.location.href = 'partner.html';
+                } else if (role === 'team') {
+                    window.location.href = 'team.html';
+                } else {
+                    window.location.href = 'admin.html';
                 }
             }
         });

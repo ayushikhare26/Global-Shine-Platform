@@ -462,6 +462,62 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/register', methods=['POST'])
+def register():
+    username = (request.form.get('username') or '').strip().lower()
+    password = (request.form.get('password') or '').strip()
+    name = (request.form.get('name') or '').strip()
+    email = (request.form.get('email') or '').strip()
+    phone = (request.form.get('phone') or '').strip()
+    role = (request.form.get('role') or 'client').strip().lower()
+
+    if not username or not password or not name or not phone:
+        flash("Please fill in all required fields to register.", "danger")
+        return redirect(url_for('login'))
+
+    conn = get_db()
+    existing = conn.execute("SELECT id FROM users WHERE LOWER(username) = ?", (username,)).fetchone()
+    if existing:
+        conn.close()
+        flash(f"Username '{username}' is already taken. Please choose another username.", "danger")
+        return redirect(url_for('login'))
+
+    pwd_hash = generate_password_hash(password)
+    try:
+        cur = conn.cursor()
+        emp_id = f"GS-{role.upper()[:3]}-{int(datetime.now().timestamp())}"
+        designation = "Client Portal User" if role == 'client' else ("Referral Partner" if role == 'partner' else "Software Engineer")
+        cur.execute('''
+        INSERT INTO users (username, password_hash, name, email, phone, role, designation, employee_id, joining_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (username, pwd_hash, name, email, phone, role, designation, emp_id, datetime.now().strftime('%Y-%m-%d')))
+        
+        # Add entry into CRM leads
+        cur.execute('''
+        INSERT INTO leads (lead_name, company, mobile, email, service_required, requirement, lead_source, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (name, f"{role.capitalize()} Portal Signup", phone, email, f"Portal Registration ({role.capitalize()})", f"New user @{username} registered via website portal.", "Portal Self-Registration", "New"))
+        conn.commit()
+        user_id = cur.lastrowid
+
+        session['user_id'] = user_id
+        session['username'] = username
+        session['name'] = name
+        session['role'] = role
+        flash(f"Account created successfully! Welcome, {name}.", "success")
+
+        if role == 'partner':
+            return redirect(url_for('partner_dashboard'))
+        elif role == 'team':
+            return redirect(url_for('team_dashboard'))
+        else:
+            return redirect(url_for('admin_dashboard'))
+    except Exception as e:
+        flash(f"Registration failed: {str(e)}", "danger")
+    finally:
+        conn.close()
+    return redirect(url_for('login'))
+
 @app.route('/logout')
 def logout():
     session.clear()

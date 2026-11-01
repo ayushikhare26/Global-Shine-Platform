@@ -528,7 +528,13 @@ function handleEnquirySubmit(event, form) {
     var message = (form.message.value || '').trim();
 
     if (!name || !phone) {
-        alert('Please fill in both your Name and Mobile Number.');
+        if (typeof showIndustryToast === 'function') {
+            showIndustryToast({
+                type: 'warning',
+                title: 'Missing Details',
+                message: 'Please provide both your Name and Mobile Number to receive an IT proposal.'
+            });
+        }
         return false;
     }
 
@@ -559,8 +565,17 @@ function handleEnquirySubmit(event, form) {
 
     // On static hosting (GitHub Pages / Netlify):
     event.preventDefault();
-    alert('Thank you, ' + name + '! Your project enquiry has been received and saved into the Admin Panel. Connecting to WhatsApp...');
-    window.open('https://wa.me/919005874417?text=' + encodeURIComponent('New Project Requirement from ' + name + ' (' + phone + ') for ' + service + ': ' + (message || 'Please consult.')), '_blank');
+    if (typeof showIndustryToast === 'function') {
+        showIndustryToast({
+            type: 'success',
+            title: 'Enquiry Received!',
+            message: 'Thank you, ' + name + '! Your enquiry is registered in our CRM. Connecting to WhatsApp...',
+            duration: 6000
+        });
+    }
+    setTimeout(function() {
+        window.open('https://wa.me/919005874417?text=' + encodeURIComponent('New Project Requirement from ' + name + ' (' + phone + ') for ' + service + ': ' + (message || 'Please consult.')), '_blank');
+    }, 1000);
     form.reset();
     return false;
 }

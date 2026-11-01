@@ -113,6 +113,16 @@
             pointer-events: none;
         }
 
+        /* Industry Alert Shake & Animations */
+        @keyframes alertShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: alertShake 0.4s ease-in-out;
+        }
+
         .logo-pulse-container {
             position: relative;
             width: 110px;
@@ -540,6 +550,142 @@
                 icon.className = "fa-solid fa-xmark text-lg";
             }
         }
+
+        // Global Industry-Level Toast Notification Engine
+        var toastTimeout = null;
+        var toastProgressInterval = null;
+
+        function showIndustryToast(options) {
+            options = options || {};
+            var type = options.type || 'info'; // 'error', 'success', 'warning', 'info'
+            var title = options.title || (type === 'error' ? 'Notice' : 'Success');
+            var message = options.message || '';
+            var actionText = options.actionText || null;
+            var actionCallback = options.actionCallback || null;
+            var duration = options.duration || 5500;
+
+            var toast = document.getElementById('gsIndustryToast');
+            var iconWrap = document.getElementById('gsToastIconWrap');
+            var icon = document.getElementById('gsToastIcon');
+            var cat = document.getElementById('gsToastCategory');
+            var titleElem = document.getElementById('gsToastTitle');
+            var msgElem = document.getElementById('gsToastMsg');
+            var actionWrap = document.getElementById('gsToastActionWrap');
+            var actionBtn = document.getElementById('gsToastActionBtn');
+            var timerBar = document.getElementById('gsToastTimerBar');
+
+            if (!toast) return;
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            if (toastProgressInterval) clearInterval(toastProgressInterval);
+
+            toast.className = "pointer-events-auto transform transition-all duration-300 bg-white/95 backdrop-blur-md rounded-2xl border shadow-2xl p-4 flex items-start gap-3.5 relative overflow-hidden";
+
+            if (type === 'error') {
+                toast.classList.add('border-rose-200', 'border-l-4', 'border-l-rose-500');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-circle-exclamation';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-rose-50 text-rose-700';
+                cat.textContent = 'ALERT';
+                timerBar.className = 'h-full w-full bg-rose-500 transition-all';
+            } else if (type === 'success') {
+                toast.classList.add('border-emerald-200', 'border-l-4', 'border-l-emerald-500');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-circle-check';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-emerald-50 text-emerald-700';
+                cat.textContent = 'SUCCESS';
+                timerBar.className = 'h-full w-full bg-emerald-500 transition-all';
+            } else if (type === 'warning') {
+                toast.classList.add('border-amber-200', 'border-l-4', 'border-l-amber-500');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-triangle-exclamation';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-amber-50 text-amber-700';
+                cat.textContent = 'WARNING';
+                timerBar.className = 'h-full w-full bg-amber-500 transition-all';
+            } else {
+                toast.classList.add('border-indigo-200', 'border-l-4', 'border-l-itIndigo');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-indigo-100 text-itIndigo flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-circle-info';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-indigo-50 text-itIndigo';
+                cat.textContent = 'INFO';
+                timerBar.className = 'h-full w-full bg-itIndigo transition-all';
+            }
+
+            titleElem.textContent = title;
+            msgElem.textContent = message;
+
+            if (actionText && typeof actionCallback === 'function') {
+                actionWrap.classList.remove('hidden');
+                actionBtn.textContent = actionText;
+                actionBtn.className = type === 'error'
+                    ? "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer"
+                    : "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-slate-800 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer";
+                actionBtn.onclick = function() {
+                    hideIndustryToast();
+                    actionCallback();
+                };
+            } else {
+                actionWrap.classList.add('hidden');
+                actionBtn.onclick = null;
+            }
+
+            toast.classList.remove('opacity-0', 'translate-y-[-20px]', 'scale-95');
+            toast.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+
+            var startTime = Date.now();
+            timerBar.style.width = '100%';
+            toastProgressInterval = setInterval(function() {
+                var elapsed = Date.now() - startTime;
+                var remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+                timerBar.style.width = remaining + '%';
+                if (remaining <= 0) {
+                    clearInterval(toastProgressInterval);
+                }
+            }, 50);
+
+            toastTimeout = setTimeout(function() {
+                hideIndustryToast();
+            }, duration);
+        }
+
+        function hideIndustryToast() {
+            var toast = document.getElementById('gsIndustryToast');
+            if (toast) {
+                toast.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                toast.classList.add('opacity-0', 'translate-y-[-20px]', 'scale-95');
+            }
+            if (toastTimeout) clearTimeout(toastTimeout);
+            if (toastProgressInterval) clearInterval(toastProgressInterval);
+        }
+    </script>
+
+    <!-- Global Industry-Level Toast Notification Component -->
+    <div id="gsToastContainer" class="fixed top-5 right-5 z-[99999] max-w-sm sm:max-w-md w-full px-4 sm:px-0 pointer-events-none transition-all duration-300">
+        <div id="gsIndustryToast" class="pointer-events-auto transform transition-all duration-300 opacity-0 translate-y-[-20px] scale-95 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 shadow-2xl p-4 flex items-start gap-3.5 relative overflow-hidden">
+            <div id="gsToastIconWrap" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-base shadow-xs">
+                <i id="gsToastIcon" class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <div class="flex-1 min-w-0 pr-2">
+                <div class="flex items-center gap-2">
+                    <span id="gsToastCategory" class="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono"></span>
+                    <h4 id="gsToastTitle" class="text-xs font-black text-slateDark"></h4>
+                </div>
+                <p id="gsToastMsg" class="text-xs text-slate-600 mt-1 leading-relaxed"></p>
+                <div id="gsToastActionWrap" class="mt-2.5 hidden">
+                    <button type="button" id="gsToastActionBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-xs transition-colors"></button>
+                </div>
+            </div>
+
+            <button type="button" onclick="hideIndustryToast()" class="text-slate-400 hover:text-slate-700 text-sm p-1 leading-none transition-colors" title="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="absolute bottom-0 left-0 right-0 h-1 bg-slate-100">
+                <div id="gsToastTimerBar" class="h-full w-full bg-slate-800 transition-all"></div>
+            </div>
+        </div>
+    </div>
     </script>
 </body>
 </html>

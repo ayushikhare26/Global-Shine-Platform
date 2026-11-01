@@ -148,7 +148,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('form').forEach(function(form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Task updated successfully!');
+                if (typeof showIndustryToast === 'function') {
+                    showIndustryToast({
+                        type: 'success',
+                        title: 'Task Updated',
+                        message: 'Task status updated successfully!'
+                    });
+                }
             });
         });
     }

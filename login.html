@@ -113,6 +113,16 @@
             pointer-events: none;
         }
 
+        /* Industry Alert Shake & Animations */
+        @keyframes alertShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: alertShake 0.4s ease-in-out;
+        }
+
         .logo-pulse-container {
             position: relative;
             width: 110px;
@@ -319,6 +329,28 @@
                 </button>
             </div>
 
+            <!-- Industry-Level Interactive Alert Box -->
+            <div id="authAlertBox" class="hidden transition-all duration-300 rounded-xl p-4 border text-xs relative overflow-hidden">
+                <div class="flex items-start gap-3">
+                    <div id="authAlertIconWrap" class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm shadow-2xs">
+                        <i id="authAlertIcon" class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <div class="flex items-center gap-2">
+                            <span id="authAlertBadge" class="text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono"></span>
+                            <h4 id="authAlertTitle" class="font-bold text-xs"></h4>
+                        </div>
+                        <p id="authAlertMsg" class="mt-1 leading-relaxed text-[11px]"></p>
+                        <div id="authAlertActionWrap" class="mt-2.5 hidden">
+                            <button type="button" id="authAlertActionBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-xs transition-colors"></button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="hideAuthAlert()" class="text-slate-400 hover:text-slate-700 text-sm p-1 leading-none transition-colors" title="Dismiss">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
             <!-- 1. SIGN IN VIEW -->
             <div id="signInView" class="space-y-4">
                 <form id="signInForm" action="/login" method="POST" class="space-y-3 text-xs">
@@ -328,7 +360,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                                 <i class="fa-solid fa-user"></i>
                             </span>
-                            <input type="text" id="username" name="username" required placeholder="Enter username (e.g. admin)" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="text" id="username" name="username" required placeholder="Enter username (e.g. admin)" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                     </div>
 
@@ -338,7 +370,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                                 <i class="fa-solid fa-lock"></i>
                             </span>
-                            <input type="password" id="password" name="password" required placeholder="Enter password" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="password" id="password" name="password" required placeholder="Enter password" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                     </div>
 
@@ -367,7 +399,7 @@
                 <div class="text-center pt-2">
                     <p class="text-xs text-slate-500">
                         Don't have an account? 
-                        <button type="button" onclick="switchAuthTab('register')" class="text-itIndigo font-bold hover:underline">Register here</button>
+                        <button type="button" onclick="switchAuthTab('register')" class="text-itIndigo font-bold hover:underline">Register here in 10s</button>
                     </p>
                 </div>
             </div>
@@ -381,18 +413,18 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                                 <i class="fa-solid fa-id-badge"></i>
                             </span>
-                            <input type="text" id="reg_name" name="name" required placeholder="Your Full Name" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="text" id="reg_name" name="name" required placeholder="Your Full Name" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Mobile / WhatsApp *</label>
-                            <input type="tel" id="reg_phone" name="phone" required placeholder="+91 9005874417" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="tel" id="reg_phone" name="phone" required placeholder="+91 9005874417" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Email Address</label>
-                            <input type="email" id="reg_email" name="email" placeholder="name@company.com" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="email" id="reg_email" name="email" placeholder="name@company.com" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                     </div>
 
@@ -408,11 +440,11 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Choose Username *</label>
-                            <input type="text" id="reg_username" name="username" required placeholder="e.g. rahul24" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="text" id="reg_username" name="username" required placeholder="e.g. rahul24" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Create Password *</label>
-                            <input type="password" id="reg_password" name="password" required placeholder="Min 6 characters" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white">
+                            <input type="password" id="reg_password" name="password" required placeholder="Min 6 characters" class="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-itIndigo focus:outline-none bg-white transition-all">
                         </div>
                     </div>
 
@@ -439,6 +471,86 @@
 function fillAuth(u, p) {
     document.getElementById('username').value = u;
     document.getElementById('password').value = p;
+    hideAuthAlert();
+    clearInputErrors();
+}
+
+function clearInputErrors() {
+    var uInput = document.getElementById('username');
+    var pInput = document.getElementById('password');
+    if (uInput) uInput.classList.remove('border-rose-400', 'ring-2', 'ring-rose-100');
+    if (pInput) pInput.classList.remove('border-rose-400', 'ring-2', 'ring-rose-100');
+}
+
+function showAuthAlert(type, title, message, actionText, actionCallback) {
+    var box = document.getElementById('authAlertBox');
+    var iconWrap = document.getElementById('authAlertIconWrap');
+    var icon = document.getElementById('authAlertIcon');
+    var badge = document.getElementById('authAlertBadge');
+    var titleElem = document.getElementById('authAlertTitle');
+    var msgElem = document.getElementById('authAlertMsg');
+    var actionWrap = document.getElementById('authAlertActionWrap');
+    var actionBtn = document.getElementById('authAlertActionBtn');
+
+    if (!box) return;
+
+    // Reset classes
+    box.className = "transition-all duration-300 rounded-xl p-4 border text-xs relative overflow-hidden animate-shake";
+
+    if (type === 'error') {
+        box.classList.add('bg-rose-50/90', 'border-rose-200', 'text-rose-900');
+        iconWrap.className = 'w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 text-sm shadow-2xs';
+        icon.className = 'fa-solid fa-circle-exclamation';
+        badge.className = 'text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-rose-100 text-rose-700';
+        badge.textContent = 'AUTH ERROR';
+    } else if (type === 'success') {
+        box.classList.add('bg-emerald-50/90', 'border-emerald-200', 'text-emerald-900');
+        iconWrap.className = 'w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-sm shadow-2xs';
+        icon.className = 'fa-solid fa-circle-check';
+        badge.className = 'text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-emerald-100 text-emerald-700';
+        badge.textContent = 'SUCCESS';
+    } else if (type === 'warning') {
+        box.classList.add('bg-amber-50/90', 'border-amber-200', 'text-amber-900');
+        iconWrap.className = 'w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-sm shadow-2xs';
+        icon.className = 'fa-solid fa-triangle-exclamation';
+        badge.className = 'text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-amber-100 text-amber-700';
+        badge.textContent = 'REQUIRED';
+    }
+
+    titleElem.textContent = title;
+    msgElem.textContent = message;
+
+    if (actionText && typeof actionCallback === 'function') {
+        actionWrap.classList.remove('hidden');
+        actionBtn.textContent = actionText;
+        actionBtn.className = type === 'error'
+            ? "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer"
+            : "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-slate-800 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer";
+        actionBtn.onclick = function() {
+            actionCallback();
+        };
+    } else {
+        actionWrap.classList.add('hidden');
+        actionBtn.onclick = null;
+    }
+
+    box.classList.remove('hidden');
+
+    // Also trigger floating toast notification
+    if (typeof showIndustryToast === 'function') {
+        showIndustryToast({
+            type: type,
+            title: title,
+            message: message,
+            actionText: actionText,
+            actionCallback: actionCallback
+        });
+    }
+}
+
+function hideAuthAlert() {
+    var box = document.getElementById('authAlertBox');
+    if (box) box.classList.add('hidden');
 }
 
 function switchAuthTab(tab) {
@@ -446,6 +558,9 @@ function switchAuthTab(tab) {
     var registerView = document.getElementById('registerView');
     var tabSignInBtn = document.getElementById('tabSignInBtn');
     var tabRegisterBtn = document.getElementById('tabRegisterBtn');
+
+    hideAuthAlert();
+    clearInputErrors();
 
     if (tab === 'register') {
         signInView.classList.add('hidden');
@@ -464,23 +579,29 @@ document.addEventListener('DOMContentLoaded', function() {
     var signInForm = document.getElementById('signInForm');
     if (signInForm) {
         signInForm.addEventListener('submit', function(e) {
-            var u = (document.getElementById('username').value || '').trim();
-            var p = (document.getElementById('password').value || '').trim();
+            var uInput = document.getElementById('username');
+            var pInput = document.getElementById('password');
+            var u = (uInput.value || '').trim();
+            var p = (pInput.value || '').trim();
 
             if (window.location.port !== '5000') {
                 e.preventDefault();
+
                 // 1. Check default demo accounts
                 if (u === 'admin' && p === 'admin123') {
                     localStorage.setItem('gs_current_user', JSON.stringify({ name: 'Nishant Chaturvedi', username: 'admin', role: 'admin' }));
-                    window.location.href = 'admin.html';
+                    showAuthAlert('success', 'Sign In Successful', 'Welcome back, Administrator! Opening CRM Dashboard...');
+                    setTimeout(function() { window.location.href = 'admin.html'; }, 700);
                     return;
                 } else if (u === 'team1' && p === 'team123') {
                     localStorage.setItem('gs_current_user', JSON.stringify({ name: 'Amit Verma', username: 'team1', role: 'team' }));
-                    window.location.href = 'team.html';
+                    showAuthAlert('success', 'Sign In Successful', 'Welcome back, Amit Verma! Opening Team Workspace...');
+                    setTimeout(function() { window.location.href = 'team.html'; }, 700);
                     return;
                 } else if (u === 'partner1' && p === 'partner123') {
                     localStorage.setItem('gs_current_user', JSON.stringify({ name: 'Abhishek Chaturvedi', username: 'partner1', role: 'partner' }));
-                    window.location.href = 'partner.html';
+                    showAuthAlert('success', 'Sign In Successful', 'Welcome back, Abhishek Chaturvedi! Opening Partner Portal...');
+                    setTimeout(function() { window.location.href = 'partner.html'; }, 700);
                     return;
                 }
 
@@ -492,16 +613,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (foundUser) {
                     localStorage.setItem('gs_current_user', JSON.stringify({ name: foundUser.name, username: foundUser.username, role: foundUser.role }));
-                    alert('Welcome back, ' + foundUser.name + '!\nRedirecting to your dashboard...');
-                    if (foundUser.role === 'partner') {
-                        window.location.href = 'partner.html';
-                    } else if (foundUser.role === 'team') {
-                        window.location.href = 'team.html';
-                    } else {
-                        window.location.href = 'admin.html';
-                    }
+                    showAuthAlert('success', 'Authentication Successful', 'Welcome back, ' + foundUser.name + '! Opening your portal...');
+                    setTimeout(function() {
+                        if (foundUser.role === 'partner') {
+                            window.location.href = 'partner.html';
+                        } else if (foundUser.role === 'team') {
+                            window.location.href = 'team.html';
+                        } else {
+                            window.location.href = 'admin.html';
+                        }
+                    }, 800);
                 } else {
-                    alert('Invalid Username or Password!\n\nIf you are a new user, click "New User? Register" tab above to create an account in 10 seconds.');
+                    // Highlight inputs
+                    if (uInput) uInput.classList.add('border-rose-400', 'ring-2', 'ring-rose-100');
+                    if (pInput) pInput.classList.add('border-rose-400', 'ring-2', 'ring-rose-100');
+
+                    showAuthAlert(
+                        'error',
+                        'Invalid Username or Password',
+                        'The credentials you provided do not match any active account.',
+                        '📝 Create an Account in 10s →',
+                        function() {
+                            switchAuthTab('register');
+                            var regName = document.getElementById('reg_name');
+                            if (regName) regName.focus();
+                        }
+                    );
                 }
             }
         });
@@ -520,14 +657,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (window.location.port !== '5000') {
                 e.preventDefault();
                 if (!name || !phone || !username || !password) {
-                    alert('Please enter Name, Mobile, Username, and Password.');
+                    showAuthAlert('warning', 'Missing Required Details', 'Please fill in your Full Name, Mobile Number, Username, and Password.');
                     return;
                 }
 
                 var registeredUsers = JSON.parse(localStorage.getItem('gs_registered_users') || '[]');
                 var exists = registeredUsers.some(function(u) { return u.username.toLowerCase() === username; });
                 if (exists || username === 'admin' || username === 'team1' || username === 'partner1') {
-                    alert('Username "' + username + '" is already taken. Please choose another username.');
+                    showAuthAlert('error', 'Username Already Taken', 'The username "@' + username + '" is already registered. Please choose another username.');
                     return;
                 }
 
@@ -562,16 +699,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('gs_custom_leads', JSON.stringify(leads));
                 } catch(err) {}
 
-                alert('Account created successfully for ' + name + '!\nYou are now logged in.');
                 localStorage.setItem('gs_current_user', JSON.stringify({ name: name, username: username, role: role }));
 
-                if (role === 'partner') {
-                    window.location.href = 'partner.html';
-                } else if (role === 'team') {
-                    window.location.href = 'team.html';
-                } else {
-                    window.location.href = 'admin.html';
-                }
+                showAuthAlert('success', 'Account Created Successfully!', 'Welcome to Global Shine, ' + name + '! Logging you into your workspace...');
+
+                setTimeout(function() {
+                    if (role === 'partner') {
+                        window.location.href = 'partner.html';
+                    } else if (role === 'team') {
+                        window.location.href = 'team.html';
+                    } else {
+                        window.location.href = 'admin.html';
+                    }
+                }, 1000);
             }
         });
     }
@@ -704,6 +844,142 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon.className = "fa-solid fa-xmark text-lg";
             }
         }
+
+        // Global Industry-Level Toast Notification Engine
+        var toastTimeout = null;
+        var toastProgressInterval = null;
+
+        function showIndustryToast(options) {
+            options = options || {};
+            var type = options.type || 'info'; // 'error', 'success', 'warning', 'info'
+            var title = options.title || (type === 'error' ? 'Notice' : 'Success');
+            var message = options.message || '';
+            var actionText = options.actionText || null;
+            var actionCallback = options.actionCallback || null;
+            var duration = options.duration || 5500;
+
+            var toast = document.getElementById('gsIndustryToast');
+            var iconWrap = document.getElementById('gsToastIconWrap');
+            var icon = document.getElementById('gsToastIcon');
+            var cat = document.getElementById('gsToastCategory');
+            var titleElem = document.getElementById('gsToastTitle');
+            var msgElem = document.getElementById('gsToastMsg');
+            var actionWrap = document.getElementById('gsToastActionWrap');
+            var actionBtn = document.getElementById('gsToastActionBtn');
+            var timerBar = document.getElementById('gsToastTimerBar');
+
+            if (!toast) return;
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            if (toastProgressInterval) clearInterval(toastProgressInterval);
+
+            toast.className = "pointer-events-auto transform transition-all duration-300 bg-white/95 backdrop-blur-md rounded-2xl border shadow-2xl p-4 flex items-start gap-3.5 relative overflow-hidden";
+
+            if (type === 'error') {
+                toast.classList.add('border-rose-200', 'border-l-4', 'border-l-rose-500');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-circle-exclamation';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-rose-50 text-rose-700';
+                cat.textContent = 'ALERT';
+                timerBar.className = 'h-full w-full bg-rose-500 transition-all';
+            } else if (type === 'success') {
+                toast.classList.add('border-emerald-200', 'border-l-4', 'border-l-emerald-500');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-circle-check';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-emerald-50 text-emerald-700';
+                cat.textContent = 'SUCCESS';
+                timerBar.className = 'h-full w-full bg-emerald-500 transition-all';
+            } else if (type === 'warning') {
+                toast.classList.add('border-amber-200', 'border-l-4', 'border-l-amber-500');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-triangle-exclamation';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-amber-50 text-amber-700';
+                cat.textContent = 'WARNING';
+                timerBar.className = 'h-full w-full bg-amber-500 transition-all';
+            } else {
+                toast.classList.add('border-indigo-200', 'border-l-4', 'border-l-itIndigo');
+                iconWrap.className = 'w-10 h-10 rounded-xl bg-indigo-100 text-itIndigo flex items-center justify-center shrink-0 text-base shadow-xs';
+                icon.className = 'fa-solid fa-circle-info';
+                cat.className = 'text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono bg-indigo-50 text-itIndigo';
+                cat.textContent = 'INFO';
+                timerBar.className = 'h-full w-full bg-itIndigo transition-all';
+            }
+
+            titleElem.textContent = title;
+            msgElem.textContent = message;
+
+            if (actionText && typeof actionCallback === 'function') {
+                actionWrap.classList.remove('hidden');
+                actionBtn.textContent = actionText;
+                actionBtn.className = type === 'error'
+                    ? "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer"
+                    : "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-slate-800 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer";
+                actionBtn.onclick = function() {
+                    hideIndustryToast();
+                    actionCallback();
+                };
+            } else {
+                actionWrap.classList.add('hidden');
+                actionBtn.onclick = null;
+            }
+
+            toast.classList.remove('opacity-0', 'translate-y-[-20px]', 'scale-95');
+            toast.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+
+            var startTime = Date.now();
+            timerBar.style.width = '100%';
+            toastProgressInterval = setInterval(function() {
+                var elapsed = Date.now() - startTime;
+                var remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+                timerBar.style.width = remaining + '%';
+                if (remaining <= 0) {
+                    clearInterval(toastProgressInterval);
+                }
+            }, 50);
+
+            toastTimeout = setTimeout(function() {
+                hideIndustryToast();
+            }, duration);
+        }
+
+        function hideIndustryToast() {
+            var toast = document.getElementById('gsIndustryToast');
+            if (toast) {
+                toast.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                toast.classList.add('opacity-0', 'translate-y-[-20px]', 'scale-95');
+            }
+            if (toastTimeout) clearTimeout(toastTimeout);
+            if (toastProgressInterval) clearInterval(toastProgressInterval);
+        }
+    </script>
+
+    <!-- Global Industry-Level Toast Notification Component -->
+    <div id="gsToastContainer" class="fixed top-5 right-5 z-[99999] max-w-sm sm:max-w-md w-full px-4 sm:px-0 pointer-events-none transition-all duration-300">
+        <div id="gsIndustryToast" class="pointer-events-auto transform transition-all duration-300 opacity-0 translate-y-[-20px] scale-95 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 shadow-2xl p-4 flex items-start gap-3.5 relative overflow-hidden">
+            <div id="gsToastIconWrap" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-base shadow-xs">
+                <i id="gsToastIcon" class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <div class="flex-1 min-w-0 pr-2">
+                <div class="flex items-center gap-2">
+                    <span id="gsToastCategory" class="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded font-mono"></span>
+                    <h4 id="gsToastTitle" class="text-xs font-black text-slateDark"></h4>
+                </div>
+                <p id="gsToastMsg" class="text-xs text-slate-600 mt-1 leading-relaxed"></p>
+                <div id="gsToastActionWrap" class="mt-2.5 hidden">
+                    <button type="button" id="gsToastActionBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-xs transition-colors"></button>
+                </div>
+            </div>
+
+            <button type="button" onclick="hideIndustryToast()" class="text-slate-400 hover:text-slate-700 text-sm p-1 leading-none transition-colors" title="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="absolute bottom-0 left-0 right-0 h-1 bg-slate-100">
+                <div id="gsToastTimerBar" class="h-full w-full bg-slate-800 transition-all"></div>
+            </div>
+        </div>
+    </div>
     </script>
 </body>
 </html>

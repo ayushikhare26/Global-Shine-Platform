@@ -757,7 +757,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 var name = (addLeadForm.lead_name.value || '').trim();
                 var mobile = (addLeadForm.mobile.value || '').trim();
                 if (!name || !mobile) {
-                    alert('Please enter Name and Mobile number.');
+                    if (typeof showIndustryToast === 'function') {
+                        showIndustryToast({
+                            type: 'warning',
+                            title: 'Missing Info',
+                            message: 'Please enter Name and Mobile number.'
+                        });
+                    } else {
+                        showToast('Please enter Name and Mobile number.');
+                    }
                     return;
                 }
                 var newLead = {
